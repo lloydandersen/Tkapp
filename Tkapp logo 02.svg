@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="138.7529mm"
+   height="113.52509mm"
+   viewBox="0 0 138.7529 113.52509"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="Tkapp logo 02.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.69219276"
+     inkscape:cx="340.22315"
+     inkscape:cy="174.08446"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-14.907332,-102.05791)">
+    <rect
+       style="fill:#268bd2;stroke:#000000;stroke-width:0"
+       id="rect1"
+       width="95.559845"
+       height="113.52509"
+       x="58.100391"
+       y="102.05791" />
+    <rect
+       style="fill:#2aa198;stroke:#000000;stroke-width:0"
+       id="rect2"
+       width="20.258688"
+       height="82.945946"
+       x="35.166016"
+       y="126.90347" />
+    <rect
+       style="fill:#2aa198;stroke:#000000;stroke-width:0"
+       id="rect3"
+       width="60.011581"
+       height="21.023165"
+       x="14.907332"
+       y="108.93822" />
+    <circle
+       id="path3"
+       style="fill:#2fd226;fill-opacity:1;stroke:#000000;stroke-width:0.264583"
+       cx="87.532822"
+       cy="149.83783"
+       r="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:164.961px;line-height:0;font-family:'Tw Cen MT';-inkscape-font-specification:'Tw Cen MT';fill:#839496;fill-opacity:1;stroke:#000000;stroke-width:0"
+       x="55.02739"
+       y="241.05925"
+       id="text3"
+       transform="scale(1.2081416,0.82771753)"><tspan
+         sodipodi:role="line"
+         id="tspan3"
+         style="fill:#839496;stroke-width:0"
+         x="55.02739"
+         y="241.05925">k</tspan></text>
+  </g>
+</svg>
