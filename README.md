@@ -28,3 +28,6 @@ Tkapp is for the refined programmer. A good cup of tea requires a cup, water, a 
 
 
 ![](https://github.com/lloydandersen/Tkapp/blob/master/AlphaUseRecording-ezgif.com-optimize.gif)
+
+## Go to Youtube for a quick sample!
+https://youtu.be/MU5eANVnTDk
