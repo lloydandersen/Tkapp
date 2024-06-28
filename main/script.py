@@ -1,17 +1,13 @@
 from tkinter import *
-from tkinter import ttk
-import time
+
 
 # Counters
 frames = 0
 buttons = 0
-latt = 0
+labels = 0
 
 
-
-
-
-
+# Running Functions
 def open_add_file(inp, file_name):
     with open(f"{file_name}.py", "a") as file:
         file.write(f"{inp}")
@@ -57,15 +53,16 @@ b_{buttons}.grid(row={buttons}, column=0)
 
 
 def add_label():
-    global latt, frames
-    latt += 1
+    global labels, frames
+    labels += 1
     open_add_file(f"""
-l_{latt} = Label(frame{frames}, text="hey what up")
-l_{latt}.grid(row={frames},column=1)
+l_{labels} = Label(frame{frames}, text="hey what up")
+l_{labels}.grid(row={frames},column=1)
 
     """, f"{app_name_var}")
 
 
+# Create the Tkapp GUI.
 root = Tk()
 root.geometry("200x750")
 root.title("Tkapp")
@@ -74,6 +71,7 @@ start_frame.grid(row=0, column=0)
 app_name_var = StringVar()
 
 
+# GUI Widgets.
 app_name_entry = Entry(start_frame, textvariable=app_name_var, width=20)
 app_name_entry.grid(row=2, column=1, sticky=W, pady=12, padx=12)
 
@@ -92,5 +90,5 @@ add_label_button.grid(row=3, column=0, sticky=W, pady=12, padx=12)
 add_finish_button = Button(start_frame, text='finish', command=finish_script, width=10, height=10)
 add_finish_button.grid(row=0, column=1, sticky=W, pady=12, padx=12)
 
+# Start GUI event loop.
 root.mainloop()
-time.sleep(3)
