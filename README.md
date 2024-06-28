@@ -17,8 +17,14 @@ Tkapp is for the refined programmer. A good cup of tea requires a cup, water, a 
 
 ## How to Install
   Tkapp has been converted into an executable file. Just download the newest and most stable version from GitHub versions. Make sure to add the Tkapp Icon to your desktop homepage for quick access.
+  
+
+
 
 
 
 ## How to Use
-  Tkapp is extremely simple to use. It is easy to make a mistake which can be difficult to fix within the Gui. So rather than continue on after making a signfigant mistake(new page, new frame). I recommend just starting over again. Which even if annoying will be at least 10x faster than coding everything out.
+  Tkapp is extremely simple to use. It is easy to make a mistake which can be difficult to fix within the Gui. So rather than continue on after making a significant mistake(new page, new frame). I recommend just starting over again. Which even if annoying will be at least 10x faster than coding everything out.
+
+
+![](https://github.com/lloydandersen/Tkapp/blob/master/AlphaUseRecording-ezgif.com-optimize.gif)
