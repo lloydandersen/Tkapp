@@ -19,8 +19,36 @@ body_font_size_var = tk.StringVar()
 primary_color_text_bool = True
 secondary_color_text_bool = True
 
+# group var
+edit_var_1 = tk.StringVar()
+edit_var_2 = tk.StringVar()
+edit_var_3 = tk.StringVar()
+edit_var_4 = tk.StringVar()
+edit_var_5 = tk.StringVar()
+edit_var_6 = tk.StringVar()
+edit_var_7 = tk.StringVar()
+edit_var_8 = tk.StringVar()
+edit_var_9 = tk.StringVar()
+edit_var_10 = tk.StringVar()
+edit_var_11 = tk.StringVar()
+edit_var_12 = tk.StringVar()
+edit_var_13 = tk.StringVar()
+edit_var_14 = tk.StringVar()
+edit_var_15 = tk.StringVar()
+edit_var_16 = tk.StringVar()
+edit_var_17 = tk.StringVar()
+edit_var_18 = tk.StringVar()
+edit_var_19 = tk.StringVar()
+edit_var_20 = tk.StringVar()
+edit_var_21 = tk.StringVar()
+edit_var_22 = tk.StringVar()
+
+
 # Widget stuff
 widget_name = tk.StringVar()
+widget_iid = tk.StringVar()
+widget_parent = tk.StringVar()
+widget_type = tk.StringVar()
 
 
 # Set varibles
@@ -74,6 +102,7 @@ def secondary_text_color_changer(*args):
         secondary_color_button["foreground"] = "black"
         secondary_color_text_bool = True
 
+
 def update_color_box_font(*args):
     new_type = body_font_type_var.get()
     new_size = body_font_size_var.get()
@@ -91,35 +120,58 @@ spreadsheet_count = 0
 variables_count = 0
 connections_count = 0
 
+
 def add_database_to_datatree():
     global database_count
-    data_tree.insert("", tk.END, text=f"Database_{database_count}")
+    data_tree.insert("", tk.END, text=f"Database_{database_count}",
+                     values=['column_1', 'col_1', 'column_2', 'col_2', None, None, None, None, None, None, None, None,
+                             None, None, None, None, None, None, None, None, None, None, "Database"])
     database_count += 1
 
 
 def add_encrypted_database_to_datatree():
     global encrypted_database_count
-    data_tree.insert("", tk.END, text=f"Encrptyeddb_{encrypted_database_count}")
+    data_tree.insert("", tk.END, text=f"Encrptyeddb_{encrypted_database_count}",
+                     values=['column_1', 'col_1', 'column_2', 'col_2', None, None, None, None, None, None, None, None,
+                             None, None, None, None, None, None, None, None, None, None, "EncryptedDB"])
     encrypted_database_count += 1
+
 
 def add_account_database_to_datatree():
     global account_database_count
-    data_tree.insert("", tk.END, text=f"Accountdb_{account_database_count}")
+    data_tree.insert("", tk.END, text=f"Accountdb_{account_database_count}",
+                     values=['column_1', 'col_1', 'column_2', 'col_2', None, None, None, None, None, None, None, None,
+                             None, None, None, None, None, None, None, None, None, None, "AccountDB"])
     account_database_count += 1
+
 
 def add_spreadsheet_to_datatree():
     global spreadsheet_count
-    data_tree.insert("", tk.END, text=f"Spreadsheet_{spreadsheet_count}")
+    data_tree.insert("", tk.END, text=f"Spreadsheet_{spreadsheet_count}", values=['column_1', 'col_1', 'column_2',
+                                                                                  'col_2', None, None, None, None, None,
+                                                                                  None, None, None, None, None, None,
+                                                                                  None, None, None, None, None, None,
+                                                                                  None, "Spreadsheet"])
     spreadsheet_count += 1
+
 
 def add_varibles_to_datatree():
     global variables_count
-    data_tree.insert("", tk.END, text=f"Variable_{variables_count}")
+    data_tree.insert("", tk.END, text=f"Variable_{variables_count}", values=['column_1', 'col_1', 'column_2',
+                                                                             'col_2', None, None, None, None, None,
+                                                                             None, None, None, None, None, None, None,
+                                                                             None, None, None, None, None, None,
+                                                                             "Variable"])
     variables_count += 1
+
 
 def add_connections_to_datatree():
     global connections_count
-    data_tree.insert("", tk.END, text=f"Connection_{connections_count}")
+    data_tree.insert("", tk.END, text=f"Connection_{connections_count}", values=['column_1', 'col_1', 'column_2',
+                                                                                 'col_2', None, None, None, None, None,
+                                                                                 None, None, None, None, None, None,
+                                                                                 None, None, None, None, None, None,
+                                                                                 None, "Connection"])
     connections_count += 1
 
 
@@ -137,16 +189,53 @@ def duplicate_item_on_data_tree(*args):
 
 # Data edit page
 def make_data_edit_frame():
+    special_data_edit_frame.grid_forget()
     # Get widget info
     item_selected = data_tree.selection()[0]
     x = data_tree.item(item_selected)
     widget_name.set(x['text'])
-    print(x)
-    data_edit_name_label = ttk.Label(data_edit_frame, text="Name")
-    data_edit_name_label.grid(row=1, column=0)
+    widget_iid.set(item_selected)
+    widget_parent.set(data_tree.parent(item_selected))
+    edit_var_1.set(x['values'][0])
+    edit_var_2.set(x['values'][1])
+    edit_var_3.set(x['values'][2])
+    edit_var_4.set(x['values'][3])
+    edit_var_5.set(x['values'][4])
+    edit_var_6.set(x['values'][5])
+    edit_var_7.set(x['values'][6])
+    edit_var_8.set(x['values'][7])
+    edit_var_9.set(x['values'][8])
+    edit_var_10.set(x['values'][9])
+    edit_var_11.set(x['values'][10])
+    edit_var_12.set(x['values'][11])
+    edit_var_13.set(x['values'][12])
+    edit_var_14.set(x['values'][13])
+    edit_var_15.set(x['values'][14])
+    edit_var_16.set(x['values'][15])
+    edit_var_17.set(x['values'][16])
+    edit_var_18.set(x['values'][17])
+    edit_var_19.set(x['values'][18])
+    edit_var_20.set(x['values'][19])
+    edit_var_21.set(x['values'][20])
+    edit_var_22.set(x['values'][21])
+    widget_type.set(x['values'][22])
+    if widget_type.get() == 'Database':
+        database_editable_frame()
 
-    data_edit_name_entry = ttk.Entry(data_edit_frame, textvariable=widget_name)
-    data_edit_name_entry.grid(row=1, column=1)
+
+def database_edit_save(iid):
+    data_tree.item(iid, text=f"{widget_name.get()}")
+    special_data_edit_frame.grid_forget()
+
+
+def database_editable_frame():
+    special_data_edit_frame.grid(row=1, column=0, sticky="swen")
+    name_label = ttk.Label(special_data_edit_frame, text="Name")
+    name_label.grid(row=0, column=0)
+    name_entry = ttk.Entry(special_data_edit_frame, textvariable=widget_name, justify="center")
+    name_entry.grid(row=0, column=1)
+    save_button = ttk.Button(special_data_edit_frame, text="Save", command=lambda: database_edit_save(widget_iid.get()))
+    save_button.grid(row=1, column=0, columnspan=2, sticky="swen")
 
 
 # Running functions
@@ -222,11 +311,13 @@ color_selection_label.grid(row=2, column=0, columnspan=2)
 color_selection_label_seperator = ttk.Separator(design_frame, orient="horizontal")
 color_selection_label_seperator.grid(row=3, column=0, columnspan=2, sticky="nwes", pady=5)
 
-primary_color_button = tk.Button(design_frame, text="Primary", command=chose_primary_color, relief="ridge", width=10, height=3, font=("roboto", 16))
+primary_color_button = tk.Button(design_frame, text="Primary", command=chose_primary_color, relief="ridge", width=10,
+                                 height=3, font=("roboto", 16))
 primary_color_button.grid(row=4, column=0, padx=(5, 0))
 primary_color_button.bind('<Button-3>', primary_text_color_changer)
 
-secondary_color_button = tk.Button(design_frame, text="Secondary", command=chose_secondary_color, relief="ridge", width=10, height=3, font=("roboto", 16))
+secondary_color_button = tk.Button(design_frame, text="Secondary", command=chose_secondary_color, relief="ridge",
+                                   width=10, height=3, font=("roboto", 16))
 secondary_color_button.grid(row=4, column=1, padx=(2, 5))
 secondary_color_button.bind('<Button-3>', secondary_text_color_changer)
 
@@ -274,6 +365,9 @@ data_page_seperator_right.grid(row=0, column=3, sticky="nwes", padx=5)
 data_edit_frame = ttk.Frame(data_page)
 data_edit_frame.grid(row=0, column=4, sticky="nwes")
 
+special_data_edit_frame = ttk.Frame(data_edit_frame)
+special_data_edit_frame.grid(row=1, column=0, sticky="swen")
+
 
 # Data Product Menu
 data_product_menu_title = ttk.Label(data_items_frame, text="Data Products", font=("Times New Roman", 18))
@@ -285,7 +379,8 @@ product_width = 4
 database_product_button = ttk.Button(data_items_frame, text="DB", command=add_database_to_datatree)
 database_product_button.grid(row=1, column=0, ipady=product_height, ipadx=product_width)
 
-encrypteddb_product_button = ttk.Button(data_items_frame, text="EncrpytedDB", command=add_encrypted_database_to_datatree)
+encrypteddb_product_button = ttk.Button(data_items_frame, text="EncrpytedDB",
+                                        command=add_encrypted_database_to_datatree)
 encrypteddb_product_button.grid(row=1, column=1, ipady=product_height, ipadx=product_width)
 
 account_product_button = ttk.Button(data_items_frame, text="Account", command=add_account_database_to_datatree)
@@ -321,10 +416,7 @@ data_tree_edit_button.grid(row=1, column=2, sticky="nwes")
 
 # Data edit frame
 data_edit_title = ttk.Label(data_edit_frame, text="Edit", font=("Times New Roman", 18))
-data_edit_title.grid(row=0, column=0, columnspan=2, sticky="ew", padx=10, pady=(5, 0))
-
-
-
+data_edit_title.grid(row=0, column=0, sticky="ew", padx=10, pady=(5, 0))
 
 
 root.mainloop()
