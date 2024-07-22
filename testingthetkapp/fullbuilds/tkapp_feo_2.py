@@ -51,7 +51,7 @@ widget_parent = tk.StringVar()
 widget_type = tk.StringVar()
 
 
-# Set varibles
+# Set variables
 body_font_size_var.set("16")
 body_font_type_var.set("Times New Roman")
 
@@ -155,7 +155,7 @@ def add_spreadsheet_to_datatree():
     spreadsheet_count += 1
 
 
-def add_varibles_to_datatree():
+def add_variables_to_datatree():
     global variables_count
     data_tree.insert("", tk.END, text=f"Variable_{variables_count}", values=['column_1', 'col_1', 'column_2',
                                                                              'col_2', None, None, None, None, None,
@@ -177,50 +177,159 @@ def add_connections_to_datatree():
 
 # Data tree functions
 def delete_item_on_data_tree(*args):
-    item_selected = data_tree.selection()[0]
-    data_tree.delete(item_selected)
+    try:
+        erase_help_message = ttk.Label(data_tree_help_frame)
+        erase_help_message.grid(row=0, column=0)
+        item_selected = data_tree.selection()[0]
+        data_tree.delete(item_selected)
+    except:
+        no_data_item_selection_help_message()
 
 
 def duplicate_item_on_data_tree(*args):
-    item_selected = data_tree.selection()[0]
-    x = data_tree.item(item_selected)
-    data_tree.insert("", tk.END, text=f"{x['text']}", values=x['values'])
+    try:
+        erase_help_message = ttk.Label(data_tree_help_frame)
+        erase_help_message.grid(row=0, column=0)
+        item_selected = data_tree.selection()[0]
+        x = data_tree.item(item_selected)
+        data_tree.insert("", tk.END, text=f"{x['text']}", values=x['values'])
+    except:
+        no_data_item_selection_help_message()
 
 
 # Data edit page
-def make_data_edit_frame():
+def make_data_edit_frame(*args):
+    try:
+        erase_help_message = ttk.Label(data_tree_help_frame)
+        erase_help_message.grid(row=0, column=0)
+        special_data_edit_frame.grid_forget()
+        # Get widget info
+        item_selected = data_tree.selection()[0]
+        x = data_tree.item(item_selected)
+        widget_name.set(x['text'])
+        widget_iid.set(item_selected)
+        widget_parent.set(data_tree.parent(item_selected))
+        edit_var_1.set(x['values'][0])
+        edit_var_2.set(x['values'][1])
+        edit_var_3.set(x['values'][2])
+        edit_var_4.set(x['values'][3])
+        edit_var_5.set(x['values'][4])
+        edit_var_6.set(x['values'][5])
+        edit_var_7.set(x['values'][6])
+        edit_var_8.set(x['values'][7])
+        edit_var_9.set(x['values'][8])
+        edit_var_10.set(x['values'][9])
+        edit_var_11.set(x['values'][10])
+        edit_var_12.set(x['values'][11])
+        edit_var_13.set(x['values'][12])
+        edit_var_14.set(x['values'][13])
+        edit_var_15.set(x['values'][14])
+        edit_var_16.set(x['values'][15])
+        edit_var_17.set(x['values'][16])
+        edit_var_18.set(x['values'][17])
+        edit_var_19.set(x['values'][18])
+        edit_var_20.set(x['values'][19])
+        edit_var_21.set(x['values'][20])
+        edit_var_22.set(x['values'][21])
+        widget_type.set(x['values'][22])
+        if widget_type.get() == 'Database':
+            database_editable_frame()
+        elif widget_type.get() == 'EncryptedDB':
+            encrypted_database_editable_frame()
+        elif widget_type.get() == 'AccountDB':
+            account_database_editable_frame()
+        elif widget_type.get() == 'Spreadsheet':
+            spreadsheet_editable_frame()
+        elif widget_type.get() == 'Variable':
+            variable_editable_frame()
+        elif widget_type.get() == 'Connection':
+            connection_editable_frame()
+
+    except:
+        no_data_item_selection_help_message()
+
+
+
+def no_data_item_selection_help_message(toggle):
+    help_label = ttk.Label(data_tree_help_frame, text="Select Item")
+    help_label.grid(row=0, column=0)
+
+
+
+
+def connection_edit_save(iid):
+    data_tree.item(iid, text=f"{widget_name.get()}")
     special_data_edit_frame.grid_forget()
-    # Get widget info
-    item_selected = data_tree.selection()[0]
-    x = data_tree.item(item_selected)
-    widget_name.set(x['text'])
-    widget_iid.set(item_selected)
-    widget_parent.set(data_tree.parent(item_selected))
-    edit_var_1.set(x['values'][0])
-    edit_var_2.set(x['values'][1])
-    edit_var_3.set(x['values'][2])
-    edit_var_4.set(x['values'][3])
-    edit_var_5.set(x['values'][4])
-    edit_var_6.set(x['values'][5])
-    edit_var_7.set(x['values'][6])
-    edit_var_8.set(x['values'][7])
-    edit_var_9.set(x['values'][8])
-    edit_var_10.set(x['values'][9])
-    edit_var_11.set(x['values'][10])
-    edit_var_12.set(x['values'][11])
-    edit_var_13.set(x['values'][12])
-    edit_var_14.set(x['values'][13])
-    edit_var_15.set(x['values'][14])
-    edit_var_16.set(x['values'][15])
-    edit_var_17.set(x['values'][16])
-    edit_var_18.set(x['values'][17])
-    edit_var_19.set(x['values'][18])
-    edit_var_20.set(x['values'][19])
-    edit_var_21.set(x['values'][20])
-    edit_var_22.set(x['values'][21])
-    widget_type.set(x['values'][22])
-    if widget_type.get() == 'Database':
-        database_editable_frame()
+
+
+def connection_editable_frame():
+    special_data_edit_frame.grid(row=1, column=0, sticky="swen")
+    name_label = ttk.Label(special_data_edit_frame, text="Name")
+    name_label.grid(row=0, column=0)
+    name_entry = ttk.Entry(special_data_edit_frame, textvariable=widget_name, justify="center")
+    name_entry.grid(row=0, column=1)
+    save_button = ttk.Button(special_data_edit_frame, text="Save", command=lambda: connection_edit_save(widget_iid.get()))
+    save_button.grid(row=1, column=0, columnspan=2, sticky="swen")
+
+
+def spreadsheet_edit_save(iid):
+    data_tree.item(iid, text=f"{widget_name.get()}")
+    special_data_edit_frame.grid_forget()
+
+
+def spreadsheet_editable_frame():
+    special_data_edit_frame.grid(row=1, column=0, sticky="swen")
+    name_label = ttk.Label(special_data_edit_frame, text="Name")
+    name_label.grid(row=0, column=0)
+    name_entry = ttk.Entry(special_data_edit_frame, textvariable=widget_name, justify="center")
+    name_entry.grid(row=0, column=1)
+    save_button = ttk.Button(special_data_edit_frame, text="Save", command=lambda: spreadsheet_edit_save(widget_iid.get()))
+    save_button.grid(row=1, column=0, columnspan=2, sticky="swen")
+
+
+def account_database_edit_save(iid):
+    data_tree.item(iid, text=f"{widget_name.get()}")
+    special_data_edit_frame.grid_forget()
+
+
+def account_database_editable_frame():
+    special_data_edit_frame.grid(row=1, column=0, sticky="swen")
+    name_label = ttk.Label(special_data_edit_frame, text="Name")
+    name_label.grid(row=0, column=0)
+    name_entry = ttk.Entry(special_data_edit_frame, textvariable=widget_name, justify="center")
+    name_entry.grid(row=0, column=1)
+    save_button = ttk.Button(special_data_edit_frame, text="Save", command=lambda: account_database_edit_save(widget_iid.get()))
+    save_button.grid(row=1, column=0, columnspan=2, sticky="swen")
+
+
+def variable_edit_save(iid):
+    data_tree.item(iid, text=f"{widget_name.get()}")
+    special_data_edit_frame.grid_forget()
+
+
+def variable_editable_frame():
+    special_data_edit_frame.grid(row=1, column=0, sticky="swen")
+    name_label = ttk.Label(special_data_edit_frame, text="Name")
+    name_label.grid(row=0, column=0)
+    name_entry = ttk.Entry(special_data_edit_frame, textvariable=widget_name, justify="center")
+    name_entry.grid(row=0, column=1)
+    save_button = ttk.Button(special_data_edit_frame, text="Save", command=lambda: variable_edit_save(widget_iid.get()))
+    save_button.grid(row=1, column=0, columnspan=2, sticky="swen")
+
+
+def encrypted_database_edit_save(iid):
+    data_tree.item(iid, text=f"{widget_name.get()}")
+    special_data_edit_frame.grid_forget()
+
+
+def encrypted_database_editable_frame():
+    special_data_edit_frame.grid(row=1, column=0, sticky="swen")
+    name_label = ttk.Label(special_data_edit_frame, text="Name")
+    name_label.grid(row=0, column=0)
+    name_entry = ttk.Entry(special_data_edit_frame, textvariable=widget_name, justify="center")
+    name_entry.grid(row=0, column=1)
+    save_button = ttk.Button(special_data_edit_frame, text="Save", command=lambda: encrypted_database_edit_save(widget_iid.get()))
+    save_button.grid(row=1, column=0, columnspan=2, sticky="swen")
 
 
 def database_edit_save(iid):
@@ -368,6 +477,9 @@ data_edit_frame.grid(row=0, column=4, sticky="nwes")
 special_data_edit_frame = ttk.Frame(data_edit_frame)
 special_data_edit_frame.grid(row=1, column=0, sticky="swen")
 
+data_tree_help_frame = ttk.Frame(data_tree_frame, relief="ridge", borderwidth=5)
+data_tree_help_frame.grid(row=2, column=1, sticky="nwes")
+
 
 # Data Product Menu
 data_product_menu_title = ttk.Label(data_items_frame, text="Data Products", font=("Times New Roman", 18))
@@ -389,7 +501,7 @@ account_product_button.grid(row=2, column=0, ipady=product_height, ipadx=product
 spreadsheet_product_button = ttk.Button(data_items_frame, text="Spreadsheet", command=add_spreadsheet_to_datatree)
 spreadsheet_product_button.grid(row=2, column=1, ipady=product_height, ipadx=product_width)
 
-var_product_button = ttk.Button(data_items_frame, text="Variable", command=add_varibles_to_datatree)
+var_product_button = ttk.Button(data_items_frame, text="Variable", command=add_variables_to_datatree)
 var_product_button.grid(row=3, column=0, ipady=product_height, ipadx=product_width)
 
 connect_product_button = ttk.Button(data_items_frame, text="Connect", command=add_connections_to_datatree)
@@ -399,7 +511,8 @@ connect_product_button.grid(row=3, column=1, ipady=product_height, ipadx=product
 # data tree frame
 data_tree = ttk.Treeview(data_tree_frame)
 data_tree.grid(row=0, column=0, columnspan=3, sticky="nwes")
-data_tree.heading('#0', text="Data Products")
+data_tree.heading('#0', text="Data View")
+data_tree.bind("<Double-Button-1>", make_data_edit_frame)
 
 # Data Tree Buttons
 data_tree_delete_button = ttk.Button(data_tree_frame, text="Delete")
@@ -416,7 +529,7 @@ data_tree_edit_button.grid(row=1, column=2, sticky="nwes")
 
 # Data edit frame
 data_edit_title = ttk.Label(data_edit_frame, text="Edit", font=("Times New Roman", 18))
-data_edit_title.grid(row=0, column=0, sticky="ew", padx=10, pady=(5, 0))
+data_edit_title.grid(row=0, column=0, sticky="ew", padx=60, pady=(5, 0))
 
 
 root.mainloop()
