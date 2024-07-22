@@ -59,6 +59,27 @@ body_font_type_var.set("Times New Roman")
 system_font_family_list = list()
 
 
+# Backend/Save/Load/Engine
+def save_tkapp_file():
+    app_name = app_name_var.get()
+    primary_color = primary_color_var.get()
+    secondary_color = secondary_color_var.get()
+    file_handle = open(f"{file_name_var.get()}.toml", "w")
+    file_handle.write(f"""app_name = "{app_name}"
+primary_color = "{primary_color}"
+secondary_color = "{secondary_color}"
+    """)
+    file_handle.close()
+
+def load_tkapp_file():
+    file_name = tk.filedialog.askopenfilename(filetypes=(('toml files', '*.toml'), ('All files', '*.*')))
+
+
+def create_tkapp():
+    pass
+
+
+
 # Functions
 def get_system_font_families():
     families = tk.font.families()
@@ -131,7 +152,7 @@ def add_database_to_datatree():
 
 def add_encrypted_database_to_datatree():
     global encrypted_database_count
-    data_tree.insert("", tk.END, text=f"Encrptyeddb_{encrypted_database_count}",
+    data_tree.insert("", tk.END, text=f"Encrypteddb_{encrypted_database_count}",
                      values=['column_1', 'col_1', 'column_2', 'col_2', None, None, None, None, None, None, None, None,
                              None, None, None, None, None, None, None, None, None, None, "EncryptedDB"])
     encrypted_database_count += 1
@@ -182,7 +203,8 @@ def delete_item_on_data_tree(*args):
         erase_help_message.grid(row=0, column=0)
         item_selected = data_tree.selection()[0]
         data_tree.delete(item_selected)
-    except:
+        clear_out_the_data_help_frame()
+    except IndexError:
         no_data_item_selection_help_message()
 
 
@@ -193,7 +215,8 @@ def duplicate_item_on_data_tree(*args):
         item_selected = data_tree.selection()[0]
         x = data_tree.item(item_selected)
         data_tree.insert("", tk.END, text=f"{x['text']}", values=x['values'])
-    except:
+        clear_out_the_data_help_frame()
+    except IndexError:
         no_data_item_selection_help_message()
 
 
@@ -245,16 +268,16 @@ def make_data_edit_frame(*args):
         elif widget_type.get() == 'Connection':
             connection_editable_frame()
 
-    except:
+        clear_out_the_data_help_frame()
+
+    except IndexError:
         no_data_item_selection_help_message()
 
 
-
-def no_data_item_selection_help_message(toggle):
+def no_data_item_selection_help_message():
+    clear_out_the_data_help_frame()
     help_label = ttk.Label(data_tree_help_frame, text="Select Item")
     help_label.grid(row=0, column=0)
-
-
 
 
 def connection_edit_save(iid):
@@ -268,7 +291,8 @@ def connection_editable_frame():
     name_label.grid(row=0, column=0)
     name_entry = ttk.Entry(special_data_edit_frame, textvariable=widget_name, justify="center")
     name_entry.grid(row=0, column=1)
-    save_button = ttk.Button(special_data_edit_frame, text="Save", command=lambda: connection_edit_save(widget_iid.get()))
+    save_button = ttk.Button(special_data_edit_frame, text="Save",
+                             command=lambda: connection_edit_save(widget_iid.get()))
     save_button.grid(row=1, column=0, columnspan=2, sticky="swen")
 
 
@@ -283,7 +307,8 @@ def spreadsheet_editable_frame():
     name_label.grid(row=0, column=0)
     name_entry = ttk.Entry(special_data_edit_frame, textvariable=widget_name, justify="center")
     name_entry.grid(row=0, column=1)
-    save_button = ttk.Button(special_data_edit_frame, text="Save", command=lambda: spreadsheet_edit_save(widget_iid.get()))
+    save_button = ttk.Button(special_data_edit_frame, text="Save",
+                             command=lambda: spreadsheet_edit_save(widget_iid.get()))
     save_button.grid(row=1, column=0, columnspan=2, sticky="swen")
 
 
@@ -298,7 +323,8 @@ def account_database_editable_frame():
     name_label.grid(row=0, column=0)
     name_entry = ttk.Entry(special_data_edit_frame, textvariable=widget_name, justify="center")
     name_entry.grid(row=0, column=1)
-    save_button = ttk.Button(special_data_edit_frame, text="Save", command=lambda: account_database_edit_save(widget_iid.get()))
+    save_button = ttk.Button(special_data_edit_frame, text="Save",
+                             command=lambda: account_database_edit_save(widget_iid.get()))
     save_button.grid(row=1, column=0, columnspan=2, sticky="swen")
 
 
@@ -313,7 +339,8 @@ def variable_editable_frame():
     name_label.grid(row=0, column=0)
     name_entry = ttk.Entry(special_data_edit_frame, textvariable=widget_name, justify="center")
     name_entry.grid(row=0, column=1)
-    save_button = ttk.Button(special_data_edit_frame, text="Save", command=lambda: variable_edit_save(widget_iid.get()))
+    save_button = ttk.Button(special_data_edit_frame, text="Save",
+                             command=lambda: variable_edit_save(widget_iid.get()))
     save_button.grid(row=1, column=0, columnspan=2, sticky="swen")
 
 
@@ -328,7 +355,8 @@ def encrypted_database_editable_frame():
     name_label.grid(row=0, column=0)
     name_entry = ttk.Entry(special_data_edit_frame, textvariable=widget_name, justify="center")
     name_entry.grid(row=0, column=1)
-    save_button = ttk.Button(special_data_edit_frame, text="Save", command=lambda: encrypted_database_edit_save(widget_iid.get()))
+    save_button = ttk.Button(special_data_edit_frame, text="Save",
+                             command=lambda: encrypted_database_edit_save(widget_iid.get()))
     save_button.grid(row=1, column=0, columnspan=2, sticky="swen")
 
 
@@ -343,8 +371,14 @@ def database_editable_frame():
     name_label.grid(row=0, column=0)
     name_entry = ttk.Entry(special_data_edit_frame, textvariable=widget_name, justify="center")
     name_entry.grid(row=0, column=1)
-    save_button = ttk.Button(special_data_edit_frame, text="Save", command=lambda: database_edit_save(widget_iid.get()))
+    save_button = ttk.Button(special_data_edit_frame, text="Save",
+                             command=lambda: database_edit_save(widget_iid.get()))
     save_button.grid(row=1, column=0, columnspan=2, sticky="swen")
+
+
+def clear_out_the_data_help_frame():
+    for widget in data_tree_help_frame.winfo_children():
+        widget.destroy()
 
 
 # Running functions
@@ -393,13 +427,13 @@ file_name_label.grid(row=2, column=3, padx=2)
 file_name_entry = ttk.Entry(create_page, textvariable=file_name_var)
 file_name_entry.grid(row=2, column=4)
 
-create_app_button = ttk.Button(create_page, text="Create")
+create_app_button = ttk.Button(create_page, text="Create", command=create_tkapp)
 create_app_button.grid(row=4, column=0, columnspan=2, sticky="nwes", ipady=10)
 
-open_config_button = ttk.Button(create_page, text="Open")
+open_config_button = ttk.Button(create_page, text="Open", command=load_tkapp_file)
 open_config_button.grid(row=4, column=3, sticky="nwes", ipady=10)
 
-save_config_button = ttk.Button(create_page, text="Save")
+save_config_button = ttk.Button(create_page, text="Save", command=save_tkapp_file)
 save_config_button.grid(row=4, column=4, sticky="nwes", ipady=10)
 
 # Design Buttons
@@ -477,7 +511,7 @@ data_edit_frame.grid(row=0, column=4, sticky="nwes")
 special_data_edit_frame = ttk.Frame(data_edit_frame)
 special_data_edit_frame.grid(row=1, column=0, sticky="swen")
 
-data_tree_help_frame = ttk.Frame(data_tree_frame, relief="ridge", borderwidth=5)
+data_tree_help_frame = ttk.Frame(data_tree_frame, relief="flat", borderwidth=5)
 data_tree_help_frame.grid(row=2, column=1, sticky="nwes")
 
 
@@ -491,7 +525,7 @@ product_width = 4
 database_product_button = ttk.Button(data_items_frame, text="DB", command=add_database_to_datatree)
 database_product_button.grid(row=1, column=0, ipady=product_height, ipadx=product_width)
 
-encrypteddb_product_button = ttk.Button(data_items_frame, text="EncrpytedDB",
+encrypteddb_product_button = ttk.Button(data_items_frame, text="EncryptedDB",
                                         command=add_encrypted_database_to_datatree)
 encrypteddb_product_button.grid(row=1, column=1, ipady=product_height, ipadx=product_width)
 
@@ -512,7 +546,8 @@ connect_product_button.grid(row=3, column=1, ipady=product_height, ipadx=product
 data_tree = ttk.Treeview(data_tree_frame)
 data_tree.grid(row=0, column=0, columnspan=3, sticky="nwes")
 data_tree.heading('#0', text="Data View")
-data_tree.bind("<Double-Button-1>", make_data_edit_frame)
+data_tree.bind("<Button-3>", make_data_edit_frame)
+
 
 # Data Tree Buttons
 data_tree_delete_button = ttk.Button(data_tree_frame, text="Delete")
