@@ -3,6 +3,8 @@ from tkinter import ttk
 from tkinter import font
 from tkinter import filedialog
 from tkinter import colorchooser
+import toml as tml
+import tomlkit as tmlk
 
 root = tk.Tk()
 root.title("Tkapp")
@@ -62,21 +64,67 @@ system_font_family_list = list()
 # Backend/Save/Load/Engine
 def save_tkapp_file():
     app_name = app_name_var.get()
+    file_name = file_name_var.get()
     primary_color = primary_color_var.get()
     secondary_color = secondary_color_var.get()
+    font_type = body_font_type_var.get()
+    font_size = body_font_size_var.get()
+
+    # File Operations
     file_handle = open(f"{file_name_var.get()}.toml", "w")
     file_handle.write(f"""app_name = "{app_name}"
+file_name = "{file_name}"
 primary_color = "{primary_color}"
 secondary_color = "{secondary_color}"
+font_type = "{font_type}"
+font_size = "{font_size}"
+primary_text_color_bool = "{primary_color_text_bool}"
+secondary_text_color_bool = "{secondary_color_text_bool}"
     """)
+    children = data_tree.get_children()
+    for child in children:
+        if data_tree.item(child)['values'][22] == "AccountDB":
+
+            file_handle.write(f"""
+accountdb.{data_tree.item(child)["text"]} = "{data_tree.item(child)['values']}" """)
     file_handle.close()
 
 def load_tkapp_file():
+    global primary_color_text_bool, secondary_color_text_bool
     file_name = tk.filedialog.askopenfilename(filetypes=(('toml files', '*.toml'), ('All files', '*.*')))
+    x = tml.load(file_name)
+    app_name_var.set(x["app_name"])
+    file_name_var.set(x["file_name"])
+    primary_color_var.set(x["primary_color"])
+    secondary_color_var.set(x["secondary_color"])
+    body_font_type_var.set(x["font_type"])
+    body_font_size_var.set(x["font_size"])
+    primary_color_text_bool = x["primary_text_color_bool"]
+    secondary_color_text_bool = x["secondary_text_color_bool"]
+    # Update the widgets on create page
+    primary_color_button["relief"] = "flat"
+    primary_color_button["background"] = primary_color_var.get()
+    if primary_color_text_bool == "True":
+        primary_color_button["foreground"] = "black"
+    else:
+        primary_color_button["foreground"] = "white"
+
+    secondary_color_button["relief"] = "flat"
+    secondary_color_button["background"] = secondary_color_var.get()
+    if secondary_color_text_bool == "True":
+        secondary_color_button["foreground"] = "black"
+    else:
+        secondary_color_button["foreground"] = "white"
+
+    update_color_box_font()
+
+
 
 
 def create_tkapp():
-    pass
+    children = data_tree.get_children()
+    for child in children:
+        print(data_tree.item(child))
 
 
 
@@ -565,6 +613,73 @@ data_tree_edit_button.grid(row=1, column=2, sticky="nwes")
 # Data edit frame
 data_edit_title = ttk.Label(data_edit_frame, text="Edit", font=("Times New Roman", 18))
 data_edit_title.grid(row=0, column=0, sticky="ew", padx=60, pady=(5, 0))
+
+
+# Build Page
+build_widget_frame = ttk.Frame(build_page)
+build_widget_frame.grid(row=0, column=0, padx=5, pady=5, sticky="nwes")
+
+left_build_seperator = ttk.Separator(build_page, orient="vertical")
+left_build_seperator.grid(row=0, column=1, sticky="nwes", ipadx=5)
+
+right_build_seperator = ttk.Separator(build_page, orient="vertical")
+right_build_seperator.grid(row=0, column=3, sticky="nwes", ipadx=5)
+
+edit_widget_frame = ttk.Frame(build_page)
+edit_widget_frame.grid(row=0, column=4, sticky="nwes", padx=5, pady=5)
+
+special_edit_widget_frame = ttk.Frame(build_page)
+
+
+# Build View Tree
+widget_tree_frame = ttk.Frame(build_page)
+widget_tree_frame.grid(row=0, column=2, sticky="nwes", padx=5, pady=5)
+widget_tree = ttk.Treeview(widget_tree_frame)
+widget_tree.grid(row=0, column=0, sticky="nwes")
+widget_tree.heading("#0", text="Widget View")
+
+widget_tree_control_frame = ttk.Frame(widget_tree_frame)
+widget_tree_control_frame.grid(row=1, column=0, sticky="nwes")
+
+# Widget Tree Control Frame
+widget_tree_delete_button = ttk.Button(widget_tree_control_frame, text="Delete")
+widget_tree_delete_button.grid(row=0, column=0, sticky="nwes")
+
+widget_tree_duplicate_button = ttk.Button(widget_tree_control_frame, text="Duplicate")
+widget_tree_duplicate_button.grid(row=0, column=1, sticky="nwes")
+
+widget_tree_edit_button = ttk.Button(widget_tree_control_frame, text="Edit")
+widget_tree_edit_button.grid(row=0, column=2, sticky="nwes")
+
+# Build Widget Frame
+build_widget_frame_title = ttk.Label(build_widget_frame, text="Widgets", font=("roboto", 16))
+build_widget_frame_title.grid(row=0, column=0, sticky="nwes")
+
+
+# Special Widget Frame
+special_build_widget_frame = ttk.Frame(build_widget_frame)
+
+build_widget_category_frame = ttk.Frame(build_widget_frame)
+build_widget_category_frame.grid(row=1, column=0, sticky="nwes")
+
+# Build Widget Category Frame
+page_widgets_button = ttk.Button(build_widget_category_frame, text="Page")
+page_widgets_button.grid(row=0, column=0, pady=5, sticky="nwes")
+
+button_widgets_button = ttk.Button(build_widget_category_frame, text="Button")
+button_widgets_button.grid(row=1, column=0, pady=5, sticky="nwes")
+
+label_widgets_button = ttk.Button(build_widget_category_frame, text="Label")
+label_widgets_button.grid(row=2, column=0, pady=5, sticky="nwes")
+
+entry_widgets_button = ttk.Button(build_widget_category_frame, text="Entry")
+entry_widgets_button.grid(row=3, column=0, pady=5, sticky="nwes")
+
+box_widgets_button = ttk.Button(build_widget_category_frame, text="Boxes")
+box_widgets_button.grid(row=4, column=0, pady=5, sticky="nwes")
+
+special_widgets_button = ttk.Button(build_widget_category_frame, text="Special")
+special_widgets_button.grid(row=5, column=0, pady=5, sticky="nwes")
 
 
 root.mainloop()
