@@ -653,7 +653,7 @@ widget_tree_edit_button.grid(row=0, column=2, sticky="nwes")
 
 # Build Widget Frame
 build_widget_frame_title = ttk.Label(build_widget_frame, text="Widgets", font=("roboto", 16))
-build_widget_frame_title.grid(row=0, column=0, sticky="nwes")
+build_widget_frame_title.grid(row=0, column=0, sticky="n")
 
 
 # Special Widget Frame
@@ -663,23 +663,61 @@ build_widget_category_frame = ttk.Frame(build_widget_frame)
 build_widget_category_frame.grid(row=1, column=0, sticky="nwes")
 
 # Build Widget Category Frame
+build_widget_width = 5
+build_widget_height = 5
+widget_category_frame_general_seperator = ttk.Separator(build_widget_category_frame, orient='horizontal')
+widget_category_frame_general_seperator.grid(row=0, column=0, columnspan=2, sticky="nwes", ipady=3, pady=(2, 0))
+
+general_widgets_title = ttk.Label(build_widget_category_frame, text="General Widgets")
+general_widgets_title.grid(row=1, column=0, columnspan=2)
+
 page_widgets_button = ttk.Button(build_widget_category_frame, text="Page")
-page_widgets_button.grid(row=0, column=0, pady=5, sticky="nwes")
+page_widgets_button.grid(row=2, column=0, pady=1, sticky="nwes", ipadx=build_widget_width, ipady=build_widget_height)
 
 button_widgets_button = ttk.Button(build_widget_category_frame, text="Button")
-button_widgets_button.grid(row=1, column=0, pady=5, sticky="nwes")
+button_widgets_button.grid(row=2, column=1, pady=1, sticky="nwes", ipadx=build_widget_width, ipady=build_widget_height)
 
 label_widgets_button = ttk.Button(build_widget_category_frame, text="Label")
-label_widgets_button.grid(row=2, column=0, pady=5, sticky="nwes")
+label_widgets_button.grid(row=3, column=0, pady=1, sticky="nwes", ipadx=build_widget_width, ipady=build_widget_height)
 
 entry_widgets_button = ttk.Button(build_widget_category_frame, text="Entry")
-entry_widgets_button.grid(row=3, column=0, pady=5, sticky="nwes")
+entry_widgets_button.grid(row=3, column=1, pady=1, sticky="nwes", ipadx=build_widget_width, ipady=build_widget_height)
 
 box_widgets_button = ttk.Button(build_widget_category_frame, text="Boxes")
-box_widgets_button.grid(row=4, column=0, pady=5, sticky="nwes")
+box_widgets_button.grid(row=4, column=0, pady=1, sticky="nwes", ipadx=build_widget_width, ipady=build_widget_height)
 
-special_widgets_button = ttk.Button(build_widget_category_frame, text="Special")
-special_widgets_button.grid(row=5, column=0, pady=5, sticky="nwes")
+other_widgets_button = ttk.Button(build_widget_category_frame, text="Other")
+other_widgets_button.grid(row=4, column=1, pady=1, sticky="nwes", ipadx=build_widget_width, ipady=build_widget_height)
+
+widget_category_frame_complex_seperator = ttk.Separator(build_widget_category_frame, orient='horizontal')
+widget_category_frame_complex_seperator.grid(row=5, column=0, columnspan=2, sticky="nwes", ipady=3, pady=(2, 0))
+
+special_widgets_title = ttk.Label(build_widget_category_frame, text="Special Widgets")
+special_widgets_title.grid(row=6, column=0, columnspan=2)
+
+graph_widgets_button = ttk.Button(build_widget_category_frame, text="Graphs")
+graph_widgets_button.grid(row=7, column=0, pady=1, sticky="nwes", ipadx=build_widget_width, ipady=build_widget_height)
+
+time_widgets_button = ttk.Button(build_widget_category_frame, text="Time")
+time_widgets_button.grid(row=7, column=1, pady=1, sticky="nwes", ipadx=build_widget_width, ipady=build_widget_height)
+
+dashboard_widgets_button = ttk.Button(build_widget_category_frame, text="Dashboard")
+dashboard_widgets_button.grid(row=8, column=0, pady=1, sticky="nwes", ipadx=build_widget_width, ipady=build_widget_height)
+
+engineering_widgets_button = ttk.Button(build_widget_category_frame, text="Engineer")
+engineering_widgets_button.grid(row=8, column=1, pady=1, sticky="nwes", ipadx=build_widget_width, ipady=build_widget_height)
+
+media_widgets_button = ttk.Button(build_widget_category_frame, text="Media")
+media_widgets_button.grid(row=9, column=0, pady=1, sticky="nwes", ipadx=build_widget_width, ipady=build_widget_height)
+
+super_widgets_button = ttk.Button(build_widget_category_frame, text="Super")
+super_widgets_button.grid(row=9, column=1, pady=1, sticky="nwes", ipadx=build_widget_width, ipady=build_widget_height)
+
+
+
+
+# graph selection frame
+build_widget_graph_categories_frame = ttk.Frame()
 
 
 root.mainloop()
