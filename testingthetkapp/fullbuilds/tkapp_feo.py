@@ -112,6 +112,16 @@ def dash_menu_go_back_to_dash(current_frame):
     if current_frame == "car":
         dash_car_frame.grid_forget()
         widget_dash_frame.grid(row=0, column=0, sticky="swen")
+    elif current_frame == "plane":
+        dash_plane_frame.grid_forget()
+        widget_dash_frame.grid(row=0, column=0, sticky="swen")
+    elif current_frame == "measure":
+        dash_measurement_frame.grid_forget()
+        widget_dash_frame.grid(row=0, column=0, sticky="swen")
+    elif current_frame == "board":
+        dashboard_frame.grid_forget()
+        widget_dash_frame.grid(row=0, column=0, sticky="swen")
+
 
 
 def open_car_dash_frame():
@@ -121,11 +131,131 @@ def open_car_dash_frame():
     back_button.grid(row=0, column=0, sticky="nw")
 
     # Widgets
-    plot_widget = ttk.Button(graph_pairwise_frame, text="Plot", style="widget.TButton")
-    plot_widget.grid(row=1, column=0, ipady=10)
+    icon_widget = ttk.Button(dash_car_frame, text="Icon", style="widget.TButton")
+    icon_widget.grid(row=1, column=0, ipady=10)
 
-    scatter_widget = ttk.Button(graph_pairwise_frame, text="Scatter", style="widget.TButton")
-    scatter_widget.grid(row=1, column=1, ipady=10)
+    speedometer_widget = ttk.Button(dash_car_frame, text="Speedometer", style="widget.TButton")
+    speedometer_widget.grid(row=1, column=1, ipady=10)
+
+    tachometer_widget = ttk.Button(dash_car_frame, text="Tachometer", style="widget.TButton")
+    tachometer_widget.grid(row=2, column=0, ipady=10)
+
+    fuel_gauge_widget = ttk.Button(dash_car_frame, text="Fuel Gauge", style="widget.TButton")
+    fuel_gauge_widget.grid(row=2, column=1, ipady=10)
+
+    oil_pressure_widget = ttk.Button(dash_car_frame, text="Oil Pressure", style="widget.TButton")
+    oil_pressure_widget.grid(row=3, column=0, ipady=10)
+
+    coolant_temperature_widget = ttk.Button(dash_car_frame, text="Cool Temp", style="widget.TButton")
+    coolant_temperature_widget.grid(row=3, column=1, ipady=10)
+
+    battery_voltage_widget = ttk.Button(dash_car_frame, text="Battery Volt", style="widget.TButton")
+    battery_voltage_widget.grid(row=4, column=0, ipady=10)
+
+    tire_pressure_widget = ttk.Button(dash_car_frame, text="Tire Pressure", style="widget.TButton")
+    tire_pressure_widget.grid(row=4, column=1, ipady=10)
+
+
+def open_plane_dash_frame():
+    widget_dash_frame.grid_forget()
+    dash_plane_frame.grid(row=0, column=0, sticky="swen")
+    back_button = ttk.Button(dash_plane_frame, text="back", command=lambda: dash_menu_go_back_to_dash("plane"))
+    back_button.grid(row=0, column=0, sticky="nw")
+
+    # Widgets
+    altimeter_widget = ttk.Button(dash_plane_frame, text="Altimeter", style="widget.TButton")
+    altimeter_widget.grid(row=1, column=0, ipady=10)
+
+    airspeed_indicator_widget = ttk.Button(dash_plane_frame, text="Airspeed", style="widget.TButton")
+    airspeed_indicator_widget.grid(row=1, column=1, ipady=10)
+
+    vertical_speed_indicator_widget = ttk.Button(dash_plane_frame, text="VSI", style="widget.TButton")
+    vertical_speed_indicator_widget.grid(row=2, column=0, ipady=10)
+
+    attitude_indicator_widget = ttk.Button(dash_plane_frame, text="Attitude", style="widget.TButton")
+    attitude_indicator_widget.grid(row=2, column=1, ipady=10)
+
+    heading_indicator_widget = ttk.Button(dash_plane_frame, text="HI", style="widget.TButton")
+    heading_indicator_widget.grid(row=3, column=0, ipady=10)
+
+    turn_coordinator_widget = ttk.Button(dash_plane_frame, text="TC", style="widget.TButton")
+    turn_coordinator_widget.grid(row=3, column=1, ipady=10)
+
+    compass_widget = ttk.Button(dash_plane_frame, text="Compass", style="widget.TButton")
+    compass_widget.grid(row=4, column=0, ipady=10)
+
+    instrument_landing_widget = ttk.Button(dash_plane_frame, text="ILS", style="widget.TButton")
+    instrument_landing_widget.grid(row=4, column=1, ipady=10)
+
+    angle_of_attack_indicator_widget = ttk.Button(dash_plane_frame, text="AOA", style="widget.TButton")
+    angle_of_attack_indicator_widget.grid(row=5, column=0, ipady=10)
+
+    bank_indicator_widget = ttk.Button(dash_plane_frame, text="Bank", style="widget.TButton")
+    bank_indicator_widget.grid(row=5, column=1, ipady=10)
+
+
+def open_measurement_dash_frame():
+    widget_dash_frame.grid_forget()
+    dash_measurement_frame.grid(row=0, column=0, sticky="swen")
+    back_button = ttk.Button(dash_measurement_frame, text="back", command=lambda: dash_menu_go_back_to_dash("measure"))
+    back_button.grid(row=0, column=0, sticky="nw")
+
+    # Widgets
+    pressure_widget = ttk.Button(dash_measurement_frame, text="Pressure", style="widget.TButton")
+    pressure_widget.grid(row=1, column=0, ipady=10)
+
+    light_block_widget = ttk.Button(dash_measurement_frame, text="Light Block", style="widget.TButton")
+    light_block_widget.grid(row=1, column=1, ipady=10)
+
+    temperature_widget = ttk.Button(dash_measurement_frame, text="Temperature", style="widget.TButton")
+    temperature_widget.grid(row=2, column=0, ipady=10)
+
+    ammeter_widget = ttk.Button(dash_measurement_frame, text="Ammeter", style="widget.TButton")
+    ammeter_widget.grid(row=2, column=1, ipady=10)
+
+    voltameter_widget = ttk.Button(dash_measurement_frame, text="Voltameter", style="widget.TButton")
+    voltameter_widget.grid(row=3, column=0, ipady=10)
+
+    humidity_widget = ttk.Button(dash_measurement_frame, text="Humidity", style="widget.TButton")
+    humidity_widget.grid(row=3, column=1, ipady=10)
+
+    warning_icon_widget = ttk.Button(dash_measurement_frame, text="Warnicon", style="widget.TButton")
+    warning_icon_widget.grid(row=4, column=0, ipady=10)
+
+    gyro_compass_widget = ttk.Button(dash_measurement_frame, text="Gyro Comp", style="widget.TButton")
+    gyro_compass_widget.grid(row=4, column=1, ipady=10)
+
+    roll_widget = ttk.Button(dash_measurement_frame, text="Roll", style="widget.TButton")
+    roll_widget.grid(row=5, column=0, ipady=10)
+
+    pitch_widget = ttk.Button(dash_measurement_frame, text="Pitch", style="widget.TButton")
+    pitch_widget.grid(row=5, column=1, ipady=10)
+
+    yaw_widget = ttk.Button(dash_measurement_frame, text="Yaw", style="widget.TButton")
+    yaw_widget.grid(row=6, column=0, ipady=10)
+
+    thrust_widget = ttk.Button(dash_measurement_frame, text="Thrust", style="widget.TButton")
+    thrust_widget.grid(row=6, column=1, ipady=10)
+
+
+def open_dashboard_frame():
+    widget_dash_frame.grid_forget()
+    dashboard_frame.grid(row=0, column=0, sticky="swen")
+    back_button = ttk.Button(dashboard_frame, text="back", command=lambda: dash_menu_go_back_to_dash("board"))
+    back_button.grid(row=0, column=0, sticky="nw")
+
+    # Widgets
+    sales_widget = ttk.Button(dashboard_frame, text="Sales", style="widget.TButton")
+    sales_widget.grid(row=1, column=0, ipady=10)
+
+    marketing_widget = ttk.Button(dashboard_frame, text="Marketing", style="widget.TButton")
+    marketing_widget.grid(row=1, column=1, ipady=10)
+
+    ecommerce_widget = ttk.Button(dashboard_frame, text="Ecommerce", style="widget.TButton")
+    ecommerce_widget.grid(row=2, column=0, ipady=10)
+
+    saas_daily_widget = ttk.Button(dashboard_frame, text="Saas Day", style="widget.TButton")
+    saas_daily_widget.grid(row=2, column=1, ipady=10)
 
 
 def open_pairwise_data_frame():
@@ -150,8 +280,8 @@ def open_pairwise_data_frame():
     fill_between_widget = ttk.Button(graph_pairwise_frame, text="Fill_Bet", style="widget.TButton")
     fill_between_widget.grid(row=3, column=0, ipady=10)
 
-    stackplot_widget = ttk.Button(graph_pairwise_frame, text="Stackplot", style="widget.TButton")
-    stackplot_widget.grid(row=3, column=1, ipady=10)
+    stack_plot_widget = ttk.Button(graph_pairwise_frame, text="Stackplot", style="widget.TButton")
+    stack_plot_widget.grid(row=3, column=1, ipady=10)
 
     stairs_widget = ttk.Button(graph_pairwise_frame, text="Stairs", style="widget.TButton")
     stairs_widget.grid(row=4, column=0, ipady=10)
@@ -383,6 +513,15 @@ def open_widget_button_frame():
     toggle_swing_switch_widget = ttk.Button(widget_button_frame, text="sSwitch", style="widget.TButton")
     toggle_swing_switch_widget.grid(row=3, column=0, ipady=10)
 
+    round_button_widget = ttk.Button(widget_button_frame, text="rButton", style="widget.TButton")
+    round_button_widget.grid(row=3, column=1, ipady=10)
+
+    oval_button_widget = ttk.Button(widget_button_frame, text="oButton", style="widget.TButton")
+    oval_button_widget.grid(row=4, column=0, ipady=10)
+
+    check_button_widget = ttk.Button(widget_button_frame, text="CheckButton", style="widget.TButton")
+    check_button_widget.grid(row=4, column=1, ipady=10)
+
 
 def open_widget_entry_frame():
     close_widget_home_frame()
@@ -413,6 +552,9 @@ def open_widget_box_frame():
 
     listbox_widget = ttk.Button(widget_box_frame, text="Listbox", style="widget.TButton")
     listbox_widget.grid(row=2, column=0, ipady=10)
+
+    checkbox_widget = ttk.Button(widget_box_frame, text="Listbox", style="widget.TButton")
+    checkbox_widget.grid(row=2, column=0, ipady=10)
 
 
 def open_widget_control_frame():
@@ -507,16 +649,16 @@ def open_widget_dash_frame():
                                 command=open_car_dash_frame)
     car_dash_button.grid(row=1, column=0, sticky="swen")
 
-    plane_dash_button = ttk.Button(widget_dash_frame, text="PlANE", style="widget.TButton",
-                                command=open_car_dash_frame)
+    plane_dash_button = ttk.Button(widget_dash_frame, text="Plane", style="widget.TButton",
+                                command=open_plane_dash_frame)
     plane_dash_button.grid(row=2, column=0, sticky="swen")
 
     measurement_dash_button = ttk.Button(widget_dash_frame, text="Measure", style="widget.TButton",
-                                command=open_car_dash_frame)
+                                command=open_measurement_dash_frame)
     measurement_dash_button.grid(row=3, column=0, sticky="swen")
 
     dashboard_button = ttk.Button(widget_dash_frame, text="Dashboard", style="widget.TButton",
-                                command=open_car_dash_frame)
+                                command=open_dashboard_frame)
     dashboard_button.grid(row=4, column=0, sticky="swen")
 
 
@@ -563,6 +705,12 @@ def open_widget_info_frame():
 
     human_damage_widget = ttk.Button(widget_info_frame, text="Human Dam", style="widget.TButton")
     human_damage_widget.grid(row=6, column=1, ipady=10)
+
+    image_widget = ttk.Button(widget_info_frame, text="Image", style="widget.TButton")
+    image_widget.grid(row=7, column=0, ipady=10)
+
+    tank_damage_widget = ttk.Button(widget_info_frame, text="Tank Dam", style="widget.TButton")
+    tank_damage_widget.grid(row=7, column=1, ipady=10)
 
 
 
