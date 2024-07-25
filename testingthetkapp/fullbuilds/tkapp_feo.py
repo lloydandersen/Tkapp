@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from tkinter import filedialog
+from tkinter import colorchooser
 from datetime import datetime
 import toml
 
@@ -23,13 +24,14 @@ widget_name_var = tk.StringVar()
 primary_color_var = tk.StringVar()
 secondary_color_var = tk.StringVar()
 accent_color_var = tk.StringVar()
+help_color_var = tk.StringVar()
 primary_text_bool = tk.BooleanVar()
 secondary_text_bool = tk.BooleanVar()
 accent_text_bool = tk.BooleanVar()
+help_text_bool = tk.BooleanVar()
 body_text_type = tk.StringVar()
 body_text_size = tk.StringVar()
-subtitle_text_type = tk.StringVar()
-subtitle_text_size = tk.StringVar()
+test_text_var = tk.StringVar()
 
 
 # Tkapp Boilerplate Code
@@ -43,8 +45,6 @@ from tkinter import ttk
 
 button_code = f"""{widget_name_var.get()} = tk.Button()
 """
-
-
 
 # Widget frames controls
 
@@ -121,7 +121,6 @@ def dash_menu_go_back_to_dash(current_frame):
     elif current_frame == "board":
         dashboard_frame.grid_forget()
         widget_dash_frame.grid(row=0, column=0, sticky="swen")
-
 
 
 def open_car_dash_frame():
@@ -290,7 +289,8 @@ def open_pairwise_data_frame():
 def open_statistical_data_frame():
     widget_graph_frame.grid_forget()
     graph_statistical_distributions_frame.grid(row=0, column=0, sticky="swen")
-    back_button = ttk.Button(graph_statistical_distributions_frame, text="back", command=lambda: graph_menu_go_back_to_graph("statistical"))
+    back_button = ttk.Button(graph_statistical_distributions_frame, text="back",
+                             command=lambda: graph_menu_go_back_to_graph("statistical"))
     back_button.grid(row=0, column=0, sticky="nw")
 
     # Widgets
@@ -325,7 +325,8 @@ def open_statistical_data_frame():
 def open_gridded_data_frame():
     widget_graph_frame.grid_forget()
     graph_gridded_data_frame.grid(row=0, column=0, sticky="swen")
-    back_button = ttk.Button(graph_gridded_data_frame, text="back", command=lambda: graph_menu_go_back_to_graph("gridded"))
+    back_button = ttk.Button(graph_gridded_data_frame, text="back",
+                             command=lambda: graph_menu_go_back_to_graph("gridded"))
     back_button.grid(row=0, column=0, sticky="nw")
 
     # Widgets
@@ -354,7 +355,8 @@ def open_gridded_data_frame():
 def open_irr_gridded_data_frame():
     widget_graph_frame.grid_forget()
     graph_irregularly_gridded_data_frame.grid(row=0, column=0, sticky="swen")
-    back_button = ttk.Button(graph_irregularly_gridded_data_frame, text="back", command=lambda: graph_menu_go_back_to_graph("irr gridded"))
+    back_button = ttk.Button(graph_irregularly_gridded_data_frame, text="back",
+                             command=lambda: graph_menu_go_back_to_graph("irr gridded"))
     back_button.grid(row=0, column=0, sticky="nw")
 
     # Widgets
@@ -409,7 +411,8 @@ def open_3d_data_frame():
 def open_spatial_data_frame():
     widget_graph_frame.grid_forget()
     graph_spatial_data_frame.grid(row=0, column=0, sticky="swen")
-    back_button = ttk.Button(graph_spatial_data_frame, text="back", command=lambda: graph_menu_go_back_to_graph("spatial"))
+    back_button = ttk.Button(graph_spatial_data_frame, text="back",
+                             command=lambda: graph_menu_go_back_to_graph("spatial"))
     back_button.grid(row=0, column=0, sticky="nw")
 
     # Widgets
@@ -612,30 +615,28 @@ def open_widget_graph_frame():
 
     # Categories
     pairwise_data_button = ttk.Button(widget_graph_frame, text="Pairwise", style="widget.TButton",
-                                command=open_pairwise_data_frame)
+                                      command=open_pairwise_data_frame)
     pairwise_data_button.grid(row=1, column=0, sticky="swen")
 
     statistical_data_button = ttk.Button(widget_graph_frame, text="Statistical", style="widget.TButton",
-                                command=open_statistical_data_frame)
+                                         command=open_statistical_data_frame)
     statistical_data_button.grid(row=2, column=0, sticky="swen")
 
     gridded_data_button = ttk.Button(widget_graph_frame, text="Gridded", style="widget.TButton",
-                                command=open_gridded_data_frame)
+                                     command=open_gridded_data_frame)
     gridded_data_button.grid(row=3, column=0, sticky="swen")
 
     irrgrid_data_button = ttk.Button(widget_graph_frame, text="IrrGridded", style="widget.TButton",
-                                command=open_irr_gridded_data_frame)
+                                     command=open_irr_gridded_data_frame)
     irrgrid_data_button.grid(row=4, column=0, sticky="swen")
 
     three_d_data_button = ttk.Button(widget_graph_frame, text="3D", style="widget.TButton",
-                                command=open_3d_data_frame)
+                                     command=open_3d_data_frame)
     three_d_data_button.grid(row=5, column=0, sticky="swen")
 
     spatial_data_button = ttk.Button(widget_graph_frame, text="Spatial", style="widget.TButton",
-                                command=open_spatial_data_frame)
+                                     command=open_spatial_data_frame)
     spatial_data_button.grid(row=6, column=0, sticky="swen")
-
-
 
 
 def open_widget_dash_frame():
@@ -646,21 +647,20 @@ def open_widget_dash_frame():
 
     # Categories
     car_dash_button = ttk.Button(widget_dash_frame, text="Car", style="widget.TButton",
-                                command=open_car_dash_frame)
+                                 command=open_car_dash_frame)
     car_dash_button.grid(row=1, column=0, sticky="swen")
 
     plane_dash_button = ttk.Button(widget_dash_frame, text="Plane", style="widget.TButton",
-                                command=open_plane_dash_frame)
+                                   command=open_plane_dash_frame)
     plane_dash_button.grid(row=2, column=0, sticky="swen")
 
     measurement_dash_button = ttk.Button(widget_dash_frame, text="Measure", style="widget.TButton",
-                                command=open_measurement_dash_frame)
+                                         command=open_measurement_dash_frame)
     measurement_dash_button.grid(row=3, column=0, sticky="swen")
 
     dashboard_button = ttk.Button(widget_dash_frame, text="Dashboard", style="widget.TButton",
-                                command=open_dashboard_frame)
+                                  command=open_dashboard_frame)
     dashboard_button.grid(row=4, column=0, sticky="swen")
-
 
 
 def open_widget_info_frame():
@@ -711,9 +711,6 @@ def open_widget_info_frame():
 
     tank_damage_widget = ttk.Button(widget_info_frame, text="Tank Dam", style="widget.TButton")
     tank_damage_widget.grid(row=7, column=1, ipady=10)
-
-
-
 
 
 def open_widget_time_frame():
@@ -868,6 +865,7 @@ build_page_right_separator.grid(row=0, column=3, sticky="swen", ipadx=5, padx=(8
 build_page_bottom_separator = ttk.Separator(build_page, orient="horizontal")
 build_page_right_separator.grid(row=1, column=0, columnspan=4, sticky="swen", ipady=1, pady=(5, 0))
 
+
 def save_app_file():
     app_file = open(f"{file_name_var.get()}.toml", "w")
     config = dict()
@@ -891,7 +889,7 @@ def save_app_dialog():
 
 
 def open_app_file(file_name):
-    app_file = open(f'{file_name}', "rb")
+    app_file = open(f'{file_name}', "r")
     config = toml.load(app_file)
     app_name = config['app_name']
     appended_file_name = config['file_name']
@@ -908,7 +906,6 @@ def open_app_dialog():
     open_app_file(file_name)
 
 
-
 def create_tkapp():
     pass
 
@@ -916,7 +913,7 @@ def create_tkapp():
 def create_tkapp_dialog():
     answer = tk.messagebox.askyesno("Create Tkapp", "Do you want to create a Tkapp?")
     if answer is True:
-        create_page
+        pass
     else:
         pass
 
@@ -941,5 +938,68 @@ file_name_label = ttk.Label(create_page, text="File Name")
 file_name_label.grid(row=5, column=0)
 file_name_entry = ttk.Entry(create_page, textvariable=file_name_var)
 file_name_entry.grid(row=5, column=1)
+
+def style_page_text_color_change():
+    pass
+
+def select_color_with_button(button):
+    if button == "primary":
+        color = tk.colorchooser.askcolor()
+        primary_color_var.set(color[1])
+        primary_color_button["background"] = primary_color_var.get()
+    elif button == "secondary":
+        color = tk.colorchooser.askcolor()
+        secondary_color_var.set(color[1])
+        secondary_color_button["background"] = secondary_color_var.get()
+    elif button == "accent":
+        color = tk.colorchooser.askcolor()
+        accent_color_var.set(color[1])
+        accent_color_button["background"] = accent_color_var.get()
+    elif button == "help":
+        color = tk.colorchooser.askcolor()
+        help_color_var.set(color[1])
+        help_color_button["background"] = help_color_var.get()
+
+
+
+def update_test_text(*args):
+    new_text = test_text_var.get()
+    primary_color_button['text'] = new_text
+    secondary_color_button['text'] = new_text
+    accent_color_button['text'] = new_text
+    help_color_button['text'] = new_text
+
+
+
+# Style Page
+primary_color_button = tk.Button(style_page, height=3, width=20, command=lambda: select_color_with_button("primary"))
+primary_color_button.grid(row=0, column=0)
+primary_color_label = ttk.Label(style_page, text="Primary")
+primary_color_label.grid(row=0, column=1)
+
+secondary_color_button = tk.Button(style_page, height=3, width=20, command=lambda: select_color_with_button("secondary"))
+secondary_color_button.grid(row=1, column=0)
+secondary_color_label = ttk.Label(style_page, text="Secondary")
+secondary_color_label.grid(row=1, column=1)
+
+accent_color_button = tk.Button(style_page, height=3, width=20, command=lambda: select_color_with_button("accent"))
+accent_color_button.grid(row=2, column=0)
+accent_color_label = ttk.Label(style_page, text="Accent")
+accent_color_label.grid(row=2, column=1)
+
+help_color_button = tk.Button(style_page, height=3, width=20, command=lambda: select_color_with_button("help"))
+help_color_button.grid(row=3, column=0)
+help_color_label = ttk.Label(style_page, text="Help")
+help_color_label.grid(row=3, column=1)
+
+body_text_type_combobox = ttk.Combobox(style_page, textvariable=body_text_type)
+body_text_type_combobox.grid(row=4, column=0)
+
+body_text_size_spinbox = ttk.Spinbox(style_page, from_=10, to=30, textvariable=body_text_size)
+body_text_size_spinbox.grid(row=4, column=1)
+
+test_text_entry = ttk.Entry(style_page, textvariable=test_text_var)
+test_text_entry.grid(row=5, column=0)
+test_text_entry.bind("<Return>", update_test_text)
 
 root.mainloop()
