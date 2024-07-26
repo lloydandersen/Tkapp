@@ -3,8 +3,13 @@ from tkinter import ttk
 from tkinter import messagebox
 from tkinter import filedialog
 from tkinter import colorchooser
+from tkinter import font
 from datetime import datetime
 import toml
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+import random
+
 
 root = tk.Tk()
 root.geometry("700x700")
@@ -32,6 +37,54 @@ help_text_bool = tk.BooleanVar()
 body_text_type = tk.StringVar()
 body_text_size = tk.StringVar()
 test_text_var = tk.StringVar()
+color_palette_selected = tk.StringVar()
+
+
+# System var
+font_list = list()
+
+
+# App lists
+color_palette_list = ["tab10", "deep", "muted", "pastel", "bright", "dark", "colorblind", "tab20", "tab20b", "tab20c",
+                      "hls", "husl", "rocket", "mako", "flare", "crest", "viridis", "plasma", "inferno", "magma",
+                      "cividis", "bwr", "seismic"]
+tab10_list = ["#5778a4", "#e49444", "#d1615d", "#85b6b2", "#6a9f58", "#e7ca60", "#a87c9f", "#f1a2a9", "#967662", "#b8b0ac"]
+deep_list = []
+muted_list = []
+pastel_list = []
+bright_list = []
+dark_list = []
+colorblind_list = []
+tab20_list = []
+tab20b_list = []
+tab20c_list = []
+hls_list = []
+husl_list = []
+rocket_list = []
+mako_list = []
+flare_list = []
+crest_list = []
+viridis_list = []
+plasma_list = []
+inferno_list = []
+magma_list = []
+cividis_list = []
+bwr_list = []
+seismic_list = []
+
+
+def palette_list_creator():
+    pass
+
+# Autoset
+primary_text_bool.set(True)
+secondary_text_bool.set(True)
+accent_text_bool.set(True)
+help_text_bool.set(True)
+test_text_var.set("Test Text")
+body_text_type.set("Times New Roman")
+body_text_size.set(18)
+color_palette_selected.set("tab10")
 
 
 # Tkapp Boilerplate Code
@@ -45,6 +98,15 @@ from tkinter import ttk
 
 button_code = f"""{widget_name_var.get()} = tk.Button()
 """
+
+def get_system_fonts():
+    fonts = tk.font.families()
+    for font in fonts:
+        font_list.append(font)
+
+
+get_system_fonts()
+
 
 # Widget frames controls
 
@@ -739,6 +801,9 @@ def open_widget_time_frame():
     date_spinner_widget.grid(row=3, column=1, ipady=10)
 
 
+def select_color_theme():
+    pass
+
 # Global Styles
 build_page = ttk.Frame(tkapp_notebook)
 tkapp_notebook.add(build_page, text="Build")
@@ -939,14 +1004,49 @@ file_name_label.grid(row=5, column=0)
 file_name_entry = ttk.Entry(create_page, textvariable=file_name_var)
 file_name_entry.grid(row=5, column=1)
 
-def style_page_text_color_change():
-    pass
+def style_page_text_color_change(button, *args):
+    if button == "primary":
+        if primary_text_bool.get() is True:
+            primary_color_button["foreground"] = "black"
+            primary_text_bool.set(False)
+        else:
+            primary_color_button["foreground"] = "white"
+            primary_text_bool.set(True)
 
-def select_color_with_button(button):
+    elif button == "secondary":
+        if secondary_text_bool.get() is True:
+            secondary_color_button["foreground"] = "black"
+            secondary_text_bool.set(False)
+        else:
+            secondary_color_button["foreground"] = "white"
+            secondary_text_bool.set(True)
+
+    elif button == "accent":
+        if accent_text_bool.get() is True:
+            accent_color_button["foreground"] = "black"
+            accent_text_bool.set(False)
+        else:
+            accent_color_button["foreground"] = "white"
+            accent_text_bool.set(True)
+
+    elif button == "help":
+        if help_text_bool.get() is True:
+            help_color_button["foreground"] = "black"
+            help_text_bool.set(False)
+        else:
+            help_color_button["foreground"] = "white"
+            help_text_bool.set(True)
+
+
+
+print(accent_text_bool.get())
+
+def select_color_with_button(button, *args):
     if button == "primary":
         color = tk.colorchooser.askcolor()
         primary_color_var.set(color[1])
         primary_color_button["background"] = primary_color_var.get()
+        print(primary_color_var.get())
     elif button == "secondary":
         color = tk.colorchooser.askcolor()
         secondary_color_var.set(color[1])
@@ -970,36 +1070,207 @@ def update_test_text(*args):
     help_color_button['text'] = new_text
 
 
+def update_font_selections(*args):
+    type = body_text_type.get()
+    size = body_text_size.get()
+
+    primary_color_button["font"] = (f"{type}", size)
+    secondary_color_button["font"] = (f"{type}", size)
+    accent_color_button["font"] = (f"{type}", size)
+    help_color_button["font"] = (f"{type}", size)
+
+
+def mix_the_colors():
+    palette_name = color_palette_selected.get()
+    num_to_select = 4
+    if palette_name == "tab10":
+        list_of_random_colors = random.sample(tab10_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "deep":
+        list_of_random_colors = random.sample(deep_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "muted":
+        list_of_random_colors = random.sample(muted_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "pastel":
+        list_of_random_colors = random.sample(pastel_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "bright":
+        list_of_random_colors = random.sample(bright_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "dark":
+        list_of_random_colors = random.sample(dark_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "colorblind":
+        list_of_random_colors = random.sample(colorblind_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "tab20":
+        list_of_random_colors = random.sample(tab20_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "tab20b":
+        list_of_random_colors = random.sample(tab20b_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "tab20c":
+        list_of_random_colors = random.sample(tab20c_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "hls":
+        list_of_random_colors = random.sample(hls_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "husl":
+        list_of_random_colors = random.sample(husl_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "rocket":
+        list_of_random_colors = random.sample(rocket_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "mako":
+        list_of_random_colors = random.sample(mako_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "flare":
+        list_of_random_colors = random.sample(flare_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "crest":
+        list_of_random_colors = random.sample(crest_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "viridis":
+        list_of_random_colors = random.sample(viridis_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "plasma":
+        list_of_random_colors = random.sample(plasma_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "inferno":
+        list_of_random_colors = random.sample(inferno_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "magma":
+        list_of_random_colors = random.sample(magma_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "cividis":
+        list_of_random_colors = random.sample(cividis_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "bwr":
+        list_of_random_colors = random.sample(bwr_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "seismic":
+        list_of_random_colors = random.sample(seismic_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+
+
+
+# "tab10", "deep", "muted", "pastel", "bright", "dark", "colorblind", "tab20", "tab20b", "tab20c",
+#                       "hls", "husl", "rocket", "mako", "flare", "crest", "viridis", "plasma", "inferno", "magma",
+#                       "cividis", "bwr", "seismic"
 
 # Style Page
-primary_color_button = tk.Button(style_page, height=3, width=20, command=lambda: select_color_with_button("primary"))
-primary_color_button.grid(row=0, column=0)
+primary_color_button = tk.Button(style_page, height=3, width=20, command=lambda: select_color_with_button("primary"), textvariable=test_text_var)
+primary_color_button.grid(row=0, column=1)
+primary_color_button.bind("<Button-3>", lambda e: style_page_text_color_change("primary"))
 primary_color_label = ttk.Label(style_page, text="Primary")
-primary_color_label.grid(row=0, column=1)
+primary_color_label.grid(row=0, column=0)
 
-secondary_color_button = tk.Button(style_page, height=3, width=20, command=lambda: select_color_with_button("secondary"))
-secondary_color_button.grid(row=1, column=0)
+secondary_color_button = tk.Button(style_page, height=3, width=20, command=lambda: select_color_with_button("secondary"), textvariable=test_text_var)
+secondary_color_button.grid(row=1, column=1)
+secondary_color_button.bind("<Button-3>", lambda e: style_page_text_color_change("secondary"))
 secondary_color_label = ttk.Label(style_page, text="Secondary")
-secondary_color_label.grid(row=1, column=1)
+secondary_color_label.grid(row=1, column=0)
 
-accent_color_button = tk.Button(style_page, height=3, width=20, command=lambda: select_color_with_button("accent"))
-accent_color_button.grid(row=2, column=0)
+accent_color_button = tk.Button(style_page, height=3, width=20, command=lambda: select_color_with_button("accent"), textvariable=test_text_var)
+accent_color_button.grid(row=2, column=1)
+accent_color_button.bind("<Button-3>", lambda e: style_page_text_color_change("accent"))
 accent_color_label = ttk.Label(style_page, text="Accent")
-accent_color_label.grid(row=2, column=1)
+accent_color_label.grid(row=2, column=0)
 
-help_color_button = tk.Button(style_page, height=3, width=20, command=lambda: select_color_with_button("help"))
-help_color_button.grid(row=3, column=0)
+help_color_button = tk.Button(style_page, height=3, width=20, command=lambda: select_color_with_button("help"), textvariable=test_text_var)
+help_color_button.grid(row=3, column=1)
+help_color_button.bind("<Button-3>", lambda e: style_page_text_color_change("help"))
 help_color_label = ttk.Label(style_page, text="Help")
-help_color_label.grid(row=3, column=1)
+help_color_label.grid(row=3, column=0)
 
-body_text_type_combobox = ttk.Combobox(style_page, textvariable=body_text_type)
+body_text_type_combobox = ttk.Combobox(style_page, textvariable=body_text_type, values=font_list)
 body_text_type_combobox.grid(row=4, column=0)
+body_text_type_combobox.bind("<Button-3>", update_font_selections)
 
-body_text_size_spinbox = ttk.Spinbox(style_page, from_=10, to=30, textvariable=body_text_size)
+body_text_size_spinbox = ttk.Spinbox(style_page, from_=10, to=30, textvariable=body_text_size, state="readonly")
 body_text_size_spinbox.grid(row=4, column=1)
+body_text_size_spinbox.bind("<Button-3>", update_font_selections)
 
 test_text_entry = ttk.Entry(style_page, textvariable=test_text_var)
 test_text_entry.grid(row=5, column=0)
 test_text_entry.bind("<Return>", update_test_text)
+
+
+random_color_type_combobox = ttk.Combobox(style_page, values=color_palette_list, textvariable=color_palette_selected)
+random_color_type_combobox.grid(row=6, column=0)
+random_color_type_combobox.bind("<Button-3>", select_color_theme)
+
+random_color_mix_button = ttk.Button(style_page, text="Mix", command=mix_the_colors)
+random_color_mix_button.grid(row=6, column=1)
 
 root.mainloop()
