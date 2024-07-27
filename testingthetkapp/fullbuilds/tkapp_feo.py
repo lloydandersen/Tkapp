@@ -42,12 +42,35 @@ color_palette_selected = tk.StringVar()
 
 # System var
 font_list = list()
+color_one_var = tk.StringVar()
+color_two_var = tk.StringVar()
+color_three_var = tk.StringVar()
+color_four_var = tk.StringVar()
+color_five_var = tk.StringVar()
+color_six_var = tk.StringVar()
+color_seven_var = tk.StringVar()
+color_eight_var = tk.StringVar()
+color_nine_var = tk.StringVar()
+color_ten_var = tk.StringVar()
+
+color_one_bool_var = tk.BooleanVar()
+color_two_bool_var = tk.BooleanVar()
+color_three_bool_var = tk.BooleanVar()
+color_four_bool_var = tk.BooleanVar()
+color_five_bool_var = tk.BooleanVar()
+color_six_bool_var = tk.BooleanVar()
+color_seven_bool_var = tk.BooleanVar()
+color_eight_bool_var = tk.BooleanVar()
+color_nine_bool_var = tk.BooleanVar()
+color_ten_bool_var = tk.BooleanVar()
+
+color_one_bool_var.set(True)
 
 
 # App lists
 color_palette_list = ["tab10", "deep", "muted", "pastel", "bright", "dark", "colorblind", "tab20", "tab20b", "tab20c",
                       "hls", "husl", "rocket", "mako", "flare", "crest", "viridis", "plasma", "inferno", "magma",
-                      "cividis", "bwr", "seismic"]
+                      "cividis", "bwr", "seismic", "vlag", "icefire", "coolwarm", "greys", "reds", "greens", "blues", "oranges", "purples", "rdgy", "spectral"]
 tab10_list = ["#5778a4", "#e49444", "#d1615d", "#85b6b2", "#6a9f58", "#e7ca60", "#a87c9f", "#f1a2a9", "#967662", "#b8b0ac"]
 deep_list = ["#4c72b0", "#dd8452", "#55a868", "#c44e52", "#8172b3", "#937860", "#da8bc3", "#8c8c8c", "#ccb974", "#64b5cd"]
 muted_list = ["#4878d0", "#ee854a", "#6acc64", "#d65f5f", "#956cb4", "#8c613c", "#dc7ec0", "#797979", "#d5bb67", "#82c6e2"]
@@ -79,13 +102,179 @@ reds_list = ["#fee5da", "#fdcfbc", "#fcb499", "#fc9575", "#fb7858", "#f6593f", "
 greens_list = ["#eaf6e5", "#d7efd1", "#c0e6b9", "#a4da9e", "#84cb83", "#61ba6c", "#3ea85b", "#279048", "#0f7a37", "#006127"]
 blues_list = ["#e4eff9", "#d3e3f3", "#bfd8ec", "#a1cbe2", "#7db8d9", "#5ca3d0", "#3f8fc4", "#2676b7", "#135fa7", "#08478e"]
 oranges_list = ["#feead6", "#fddcba", "#fdca98", "#fdb06f", "#fd984c", "#f8802d", "#ef6611", "#dc4d03", "#bc3d02", "#9b3103"]
-purples_list = ["#f2f0f7"]
+purples_list = ["#f2f0f7", "#e5e4f0", "#d5d5e8", "#bebfdd", "#a8a6cf", "#938fc2", "#7e79b8", "#6d58a6", "#5d3997", "#4e1c89"]
 rdgy_list = ["#aa1529", "#ce5146", "#eb9072", "#f9c7ae", "#feeee5", "#f1f1f1", "#d2d2d2", "#ababab", "#7b7b7b", "#484848"]
 spectral_list = ["#cf384d", "#ed6345", "#fa9a58", "#fdce7c", "#fef1a7", "#f3faad", "#d1ec9c", "#96d5a4", "#5bb6a9", "#3682ba"]
 
 
-def palette_list_creator():
-    pass
+
+
+
+
+def palette_list_creator(*args):
+    # Change colors
+    palette_name = color_palette_selected.get()
+    if palette_name == "tab10":
+        update_palette_buttons(tab10_list)
+
+    elif palette_name == "deep":
+        update_palette_buttons(deep_list)
+
+    elif palette_name == "muted":
+        update_palette_buttons(muted_list)
+
+    elif palette_name == "pastel":
+        update_palette_buttons(pastel_list)
+
+    elif palette_name == "bright":
+        update_palette_buttons(bright_list)
+
+    elif palette_name == "dark":
+        update_palette_buttons(dark_list)
+
+    elif palette_name == "colorblind":
+        update_palette_buttons(colorblind_list)
+
+    elif palette_name == "tab20":
+        update_palette_buttons(tab20_list)
+
+    elif palette_name == "tab20b":
+        update_palette_buttons(tab20b_list)
+
+    elif palette_name == "tab20c":
+        update_palette_buttons(tab20c_list)
+
+    elif palette_name == "hls":
+        update_palette_buttons(hls_list)
+
+    elif palette_name == "husl":
+        update_palette_buttons(husl_list)
+
+    elif palette_name == "rocket":
+        update_palette_buttons(rocket_list)
+
+    elif palette_name == "mako":
+        update_palette_buttons(mako_list)
+
+    elif palette_name == "flare":
+        update_palette_buttons(flare_list)
+
+    elif palette_name == "crest":
+        update_palette_buttons(crest_list)
+
+    elif palette_name == "viridis":
+        update_palette_buttons(viridis_list)
+
+    elif palette_name == "plasma":
+        update_palette_buttons(plasma_list)
+
+    elif palette_name == "inferno":
+        update_palette_buttons(inferno_list)
+
+    elif palette_name == "magma":
+        update_palette_buttons(magma_list)
+
+    elif palette_name == "cividis":
+        update_palette_buttons(cividis_list)
+
+    elif palette_name == "bwr":
+        update_palette_buttons(bwr_list)
+
+    elif palette_name == "seismic":
+        update_palette_buttons(seismic_list)
+
+    elif palette_name == "vlag":
+        update_palette_buttons(vlag_list)
+
+    elif palette_name == "icefire":
+        update_palette_buttons(icefire_list)
+
+    elif palette_name == "coolwarm":
+        update_palette_buttons(coolwarm_list)
+
+    elif palette_name == "greys":
+        update_palette_buttons(greys_list)
+
+    elif palette_name == "reds":
+        update_palette_buttons(reds_list)
+
+    elif palette_name == "greens":
+        update_palette_buttons(greens_list)
+
+    elif palette_name == "blues":
+        update_palette_buttons(blues_list)
+
+    elif palette_name == "oranges":
+        update_palette_buttons(oranges_list)
+
+    elif palette_name == "purples":
+        update_palette_buttons(purples_list)
+
+    elif palette_name == "rdgy":
+        update_palette_buttons(rdgy_list)
+
+    elif palette_name == "spectral":
+        update_palette_buttons(spectral_list)
+
+
+
+def update_palette_frame_var(list_name):
+    color_one_var.set(list_name[0])
+    color_two_var.set(list_name[1])
+    color_three_var.set(list_name[2])
+    color_four_var.set(list_name[3])
+    color_five_var.set(list_name[4])
+    color_six_var.set(list_name[5])
+    color_seven_var.set(list_name[6])
+    color_eight_var.set(list_name[7])
+    color_nine_var.set(list_name[8])
+    color_ten_var.set(list_name[9])
+
+
+def update_palette_buttons(list_name):
+    update_palette_frame_var(list_name)
+    color_one_button["background"] = color_one_var.get()
+    color_one_button["text"] = color_one_var.get()
+
+    color_two_button["background"] = color_two_var.get()
+    color_two_button["text"] = color_two_var.get()
+
+    color_three_button["background"] = color_three_var.get()
+    color_three_button["text"] = color_three_var.get()
+
+    color_four_button["background"] = color_four_var.get()
+    color_four_button["text"] = color_four_var.get()
+
+    color_five_button["background"] = color_five_var.get()
+    color_five_button["text"] = color_five_var.get()
+
+    color_six_button["background"] = color_six_var.get()
+    color_six_button["text"] = color_six_var.get()
+
+    color_seven_button["background"] = color_seven_var.get()
+    color_seven_button["text"] = color_seven_var.get()
+
+    color_eight_button["background"] = color_eight_var.get()
+    color_eight_button["text"] = color_eight_var.get()
+
+    color_nine_button["background"] = color_nine_var.get()
+    color_nine_button["text"] = color_nine_var.get()
+
+    color_ten_button["background"] = color_ten_var.get()
+    color_ten_button["text"] = color_ten_var.get()
+
+
+
+def update_color_palette_button_text_color(button_number, *args):
+    if button_number == 1:
+        if color_one_bool_var.get() is True:
+            color_one_button["foreground"] = "white"
+            color_one_bool_var.set(False)
+        else:
+            color_one_button["foreground"] = "black"
+            color_one_bool_var.set(True)
+
+
 
 # Autoset
 primary_text_bool.set(True)
@@ -1015,6 +1204,9 @@ file_name_label.grid(row=5, column=0)
 file_name_entry = ttk.Entry(create_page, textvariable=file_name_var)
 file_name_entry.grid(row=5, column=1)
 
+palette_frame = ttk.Frame(style_page)
+palette_frame.grid(row=7, column=0, columnspan=2, sticky="swen")
+
 def style_page_text_color_change(button, *args):
     if button == "primary":
         if primary_text_bool.get() is True:
@@ -1232,12 +1424,79 @@ def mix_the_colors():
         secondary_color_button["background"] = list_of_random_colors[1]
         accent_color_button["background"] = list_of_random_colors[2]
         help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "vlag":
+        list_of_random_colors = random.sample(vlag_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "icefire":
+        list_of_random_colors = random.sample(icefire_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "coolwarm":
+        list_of_random_colors = random.sample(coolwarm_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "greys":
+        list_of_random_colors = random.sample(greys_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "reds":
+        list_of_random_colors = random.sample(reds_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "greens":
+        list_of_random_colors = random.sample(greens_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "blues":
+        list_of_random_colors = random.sample(blues_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "oranges":
+        list_of_random_colors = random.sample(oranges_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "purples":
+        list_of_random_colors = random.sample(purples_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "rdgy":
+        list_of_random_colors = random.sample(rdgy_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
+    elif palette_name == "spectral":
+        list_of_random_colors = random.sample(spectral_list, num_to_select)
+        primary_color_button["background"] = list_of_random_colors[0]
+        secondary_color_button["background"] = list_of_random_colors[1]
+        accent_color_button["background"] = list_of_random_colors[2]
+        help_color_button["background"] = list_of_random_colors[3]
 
 
 
 # "tab10", "deep", "muted", "pastel", "bright", "dark", "colorblind", "tab20", "tab20b", "tab20c",
 #                       "hls", "husl", "rocket", "mako", "flare", "crest", "viridis", "plasma", "inferno", "magma",
 #                       "cividis", "bwr", "seismic"
+# "vlag", "icefire", "coolwarm", "greys", "reds", "greens", "blues", "oranges", "purples", "rdgy", "spectral"
 
 # Style Page
 primary_color_button = tk.Button(style_page, height=3, width=20, command=lambda: select_color_with_button("primary"), textvariable=test_text_var)
@@ -1279,9 +1538,46 @@ test_text_entry.bind("<Return>", update_test_text)
 
 random_color_type_combobox = ttk.Combobox(style_page, values=color_palette_list, textvariable=color_palette_selected)
 random_color_type_combobox.grid(row=6, column=0)
-random_color_type_combobox.bind("<Button-3>", select_color_theme)
+random_color_type_combobox.bind("<Button-3>", palette_list_creator)
 
 random_color_mix_button = ttk.Button(style_page, text="Mix", command=mix_the_colors)
 random_color_mix_button.grid(row=6, column=1)
+
+
+
+
+color_button_height = 2
+color_button_width = 8
+
+color_one_button = tk.Button(palette_frame, height=color_button_height, width=color_button_width)
+color_one_button.grid(row=0, column=0, sticky="swen")
+color_one_button.bind("<Button-3>", lambda e: update_color_palette_button_text_color(1))
+
+color_two_button = tk.Button(palette_frame, height=color_button_height, width=color_button_width)
+color_two_button.grid(row=0, column=1, sticky="swen")
+
+color_three_button = tk.Button(palette_frame, height=color_button_height, width=color_button_width)
+color_three_button.grid(row=0, column=2, sticky="swen")
+
+color_four_button = tk.Button(palette_frame, height=color_button_height, width=color_button_width)
+color_four_button.grid(row=0, column=3, sticky="swen")
+
+color_five_button = tk.Button(palette_frame, height=color_button_height, width=color_button_width)
+color_five_button.grid(row=0, column=4, sticky="swen")
+
+color_six_button = tk.Button(palette_frame, height=color_button_height, width=color_button_width)
+color_six_button.grid(row=0, column=5, sticky="swen")
+
+color_seven_button = tk.Button(palette_frame, height=color_button_height, width=color_button_width)
+color_seven_button.grid(row=0, column=6, sticky="swen")
+
+color_eight_button = tk.Button(palette_frame, height=color_button_height, width=color_button_width)
+color_eight_button.grid(row=0, column=7, sticky="swen")
+
+color_nine_button = tk.Button(palette_frame, height=color_button_height, width=color_button_width)
+color_nine_button.grid(row=0, column=8, sticky="swen")
+
+color_ten_button = tk.Button(palette_frame, height=color_button_height, width=color_button_width)
+color_ten_button.grid(row=0, column=9, sticky="swen")
 
 root.mainloop()
