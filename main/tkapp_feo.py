@@ -13,8 +13,8 @@ style = ttk.Style()
 style.configure("TNotebook.Tab", font=("Poor Richard", 20))
 background_color = "#222222"
 root["background"] = background_color
-standard_widget_values = [0, 0, 0, 0, 0, 0, "swen", 1, 1, "#222222", "white", ("arial", 16), None, None, None, None,
-                          None, None]
+standard_widget_values = [0, 0, 0, 0, 0, 0, "", 1, 1, "#222222", "white", ("arial", 16), None, None, None, None,
+                          None, None, None]
 
 # Variables
 widget_selection_var = tk.StringVar()
@@ -38,6 +38,7 @@ var_3 = tk.StringVar()
 var_4 = tk.StringVar()
 var_5 = tk.StringVar()
 var_6 = tk.StringVar()
+current_subtype_var = tk.StringVar()
 
 
 # Icons. Thank You, Google!
@@ -65,6 +66,9 @@ data_dialog_frame = tk.Frame()
 engineering_dialog_frame = tk.Frame()
 special_dialog_frame = tk.Frame()
 standard_grid_frame = tk.Frame()
+special_var_frame = tk.Frame(edit_frame)
+color_frame = tk.Frame(special_var_frame)
+work_frame = tk.Frame()
 
 
 # Control and model functions
@@ -79,6 +83,15 @@ def duplicate_selection():
     text = item['text']
     values = item['values']
     view_tree.insert("", tk.END, text=text, values=values)
+
+
+def select_a_color(type):
+    global background_color_var
+    color = tk.colorchooser.askcolor()[1]
+    if type == 'background':
+        background_color_var.set(f"{color}")
+    else:
+        foreground_color_var.set(f"{color}")
 
 
 def save_edit():
@@ -100,8 +113,9 @@ def save_edit():
     four = var_4.get()
     five = var_5.get()
     six = var_6.get()
+    subtype = current_subtype_var.get()
     edited_list = [row, column, padx, pady, ipadx, ipady, sticky, rowspan, columnspan, background, foreground, font,
-                   one, two, three, four, five, six]
+                   one, two, three, four, five, six, subtype]
 
     name = widget_name_var.get()
     iid = widget_iid_var.get()
@@ -109,19 +123,163 @@ def save_edit():
 
 
 def build_grid_frame():
+    global widget_name_var, widget_iid_var, row_var, column_var, padx_var, pady_var, ipadx_var, ipady_var, sticky_var
+    global rowspan_var, columnspan_var, background_color_var, foreground_color_var, font_var, var_1, var_2, var_3
+    global var_4, var_5, var_6, current_subtype_var
+
     standard_grid_frame = tk.Frame(edit_frame, background="#222222")
     standard_grid_frame.grid(row=1, column=0, padx=(10, 0))
-    grid_title = tk.Label(standard_grid_frame, text="Placement", background=background_color, foreground="white")
+    grid_title = tk.Label(standard_grid_frame, text="Placement", background=background_color, foreground="white", font=("Times New Roman", 18))
     grid_title.grid(row=0, column=0, columnspan=2)
+
+    row_placement_label = tk.Label(standard_grid_frame, text="Row", background=background_color, foreground="white")
+    row_placement_label.grid(row=1, column=0, padx=5, pady=5)
+
+    row_placement_spinbox = tk.Spinbox(standard_grid_frame, textvariable=row_var, from_=0, to=50, state="readonly",
+                                       background="white", foreground="#222222")
+    row_placement_spinbox.grid(row=1, column=1)
+
+    column_placement_label = tk.Label(standard_grid_frame, text="Column", background=background_color, foreground="white")
+    column_placement_label.grid(row=2, column=0, padx=5, pady=5)
+
+    column_placement_spinbox = tk.Spinbox(standard_grid_frame, textvariable=column_var, from_=0, to=50, state="readonly",
+                                       background="white", foreground="#222222")
+    column_placement_spinbox.grid(row=2, column=1)
+
+    padx_placement_label = tk.Label(standard_grid_frame, text="Padx", background=background_color, foreground="white")
+    padx_placement_label.grid(row=3, column=0, padx=5, pady=5)
+
+    padx_placement_spinbox = tk.Spinbox(standard_grid_frame, textvariable=padx_var, from_=0, to=50, state="readonly",
+                                       background="white", foreground="#222222")
+    padx_placement_spinbox.grid(row=3, column=1)
+
+    pady_placement_label = tk.Label(standard_grid_frame, text="Pady", background=background_color, foreground="white")
+    pady_placement_label.grid(row=4, column=0, padx=5, pady=5)
+
+    pady_placement_spinbox = tk.Spinbox(standard_grid_frame, textvariable=pady_var, from_=0, to=50, state="readonly",
+                                       background="white", foreground="#222222")
+    pady_placement_spinbox.grid(row=4, column=1)
+
+    ipadx_placement_label = tk.Label(standard_grid_frame, text="Ipadx", background=background_color, foreground="white")
+    ipadx_placement_label.grid(row=5, column=0, padx=5, pady=5)
+
+    ipadx_placement_spinbox = tk.Spinbox(standard_grid_frame, textvariable=ipadx_var, from_=0, to=50, state="readonly",
+                                       background="white", foreground="#222222")
+    ipadx_placement_spinbox.grid(row=5, column=1)
+
+    ipady_placement_label = tk.Label(standard_grid_frame, text="Ipady", background=background_color, foreground="white")
+    ipady_placement_label.grid(row=6, column=0, padx=5, pady=5)
+
+    ipady_placement_spinbox = tk.Spinbox(standard_grid_frame, textvariable=ipady_var, from_=0, to=50, state="readonly",
+                                       background="white", foreground="#222222")
+    ipady_placement_spinbox.grid(row=6, column=1)
+
+    rowspan_placement_label = tk.Label(standard_grid_frame, text="Rowspan", background=background_color, foreground="white")
+    rowspan_placement_label.grid(row=7, column=0, padx=5, pady=5)
+
+    rowspan_placement_spinbox = tk.Spinbox(standard_grid_frame, textvariable=rowspan_var, from_=1, to=50, state="readonly",
+                                       background="white", foreground="#222222")
+    rowspan_placement_spinbox.grid(row=7, column=1)
+
+    columnspan_placement_label = tk.Label(standard_grid_frame, text="Columnspan", background=background_color, foreground="white")
+    columnspan_placement_label.grid(row=8, column=0, padx=5, pady=5)
+
+    columnspan_placement_spinbox = tk.Spinbox(standard_grid_frame, textvariable=columnspan_var, from_=1, to=50, state="readonly",
+                                       background="white", foreground="#222222")
+    columnspan_placement_spinbox.grid(row=8, column=1)
+
+    sticky_placement_frame = tk.Frame(standard_grid_frame, background=background_color)
+    sticky_placement_frame.grid(row=9, column=0, columnspan=2)
+
+    navi_button_background = "white"
+    navi_button_foreground = "#222222"
+    navi_button_width = 10
+    navi_button_height = 3
+
+    north_button = tk.Button(sticky_placement_frame, text="North", background=navi_button_background,
+                             foreground=navi_button_foreground, command=lambda: sticky_var.set("n"), width=navi_button_width, height=navi_button_height)
+    north_button.grid(row=0, column=1)
+
+    northwest_button = tk.Button(sticky_placement_frame, text="NW", background=navi_button_background,
+                             foreground=navi_button_foreground, command=lambda: sticky_var.set("nw"), width=navi_button_width, height=navi_button_height)
+    northwest_button.grid(row=0, column=0)
+
+    northeast_button = tk.Button(sticky_placement_frame, text="NE", background=navi_button_background,
+                             foreground=navi_button_foreground, command=lambda: sticky_var.set("ne"), width=navi_button_width, height=navi_button_height)
+    northeast_button.grid(row=0, column=2)
+
+    east_button = tk.Button(sticky_placement_frame, text="East", background=navi_button_background,
+                             foreground=navi_button_foreground, command=lambda: sticky_var.set("e"), width=navi_button_width, height=navi_button_height)
+    east_button.grid(row=1, column=2)
+
+    west_button = tk.Button(sticky_placement_frame, text="West", background=navi_button_background,
+                             foreground=navi_button_foreground, command=lambda: sticky_var.set("w"), width=navi_button_width, height=navi_button_height)
+    west_button.grid(row=1, column=0)
+
+    south_button = tk.Button(sticky_placement_frame, text="South", background=navi_button_background,
+                             foreground=navi_button_foreground, command=lambda: sticky_var.set("s"), width=navi_button_width, height=navi_button_height)
+    south_button.grid(row=2, column=1)
+
+    southeast_button = tk.Button(sticky_placement_frame, text="SE", background=navi_button_background,
+                             foreground=navi_button_foreground, command=lambda: sticky_var.set("se"), width=navi_button_width, height=navi_button_height)
+    southeast_button.grid(row=2, column=2)
+
+    southwest_button = tk.Button(sticky_placement_frame, text="SW", background=navi_button_background,
+                             foreground=navi_button_foreground, command=lambda: sticky_var.set("sw"), width=navi_button_width, height=navi_button_height)
+    southwest_button.grid(row=2, column=0)
+    center_button = tk.Button(sticky_placement_frame, text="Sticky", background=navi_button_background,
+                             foreground=navi_button_foreground, command=lambda: sticky_var.set(""),
+                             textvariable=sticky_var, width=navi_button_width, height=navi_button_height)
+    center_button.grid(row=1, column=1)
+    center_button.bind("<Button-3>", lambda e: sticky_var.set("swen"))
+
+    # other building blocks
+    color_frame = tk.Frame(standard_grid_frame)
+    color_button_height = 3
+    color_button_width = 10
+    background_color_button = tk.Button(color_frame, text="Background", command=lambda: select_a_color("background"),
+                                        width=color_button_width, height=color_button_height)
+
+    background_color_button.grid(row=0, column=0)
+
+    foreground_color_button = tk.Button(color_frame, text="Foreground", command=lambda: select_a_color("foreground"),
+                                        width=color_button_width, height=color_button_height)
+    foreground_color_button.grid(row=0, column=1)
+
+    background_color_button['background'] = background_color_var.get()
+    foreground_color_button['background'] = foreground_color_var.get()
+
+    color_frame.grid(row=0, column=2)
+
+    work_frame = tk.Frame(standard_grid_frame, background=background_color)
+    work_frame.grid(row=1, column=2)
+
+    save_button = tk.Button(standard_grid_frame, text="Save", command=save_edit)
+    save_button.grid(row=2, column=2)
+    widget_type = current_subtype_var.get()
+
+    if widget_type == 'Label':
+        text_label = tk.Label(work_frame, text="Text", background=background_color, foreground="white")
+        text_label.grid(row=0, column=0, padx=5, pady=5)
+
+        text_entry = tk.Entry(work_frame, textvariable=var_1)
+        text_entry.grid(row=0, column=1)
+
+
+
 
 
 def edit_selection():
+    global widget_name_var, widget_iid_var, row_var, column_var, padx_var, pady_var, ipadx_var, ipady_var, sticky_var
+    global rowspan_var, columnspan_var, background_color_var, foreground_color_var, font_var, var_1, var_2, var_3
+    global var_4, var_5, var_6, current_subtype_var
     selection = view_tree.selection()[0]
     item = view_tree.item(selection)
     widget_name = item['text']
     widget_values = item['values']
     print(widget_name, widget_values)
-    build_grid_frame()
+
+
 
     # Set variables
     widget_name_var.set(widget_name)
@@ -144,11 +302,15 @@ def edit_selection():
     var_4.set(widget_values[15])
     var_5.set(widget_values[16])
     var_6.set(widget_values[17])
+    current_subtype_var.set(widget_values[18])
+    build_grid_frame()
+
 
 
 def add_selection_to_tree():
     selected_widget = widget_selection_var.get()
     if selected_widget != "":
+        standard_widget_values[18] = selected_widget
         view_tree.insert("", tk.END, text=f"{selected_widget}", values=standard_widget_values)
     else:
         pass
@@ -276,7 +438,7 @@ def build_widget_frame():
 def build_edit_frame():
     edit_title = tk.Label(edit_frame, text="Edit", background=frame_title_text_background_color,
                           foreground=frame_title_text_foreground_color, font=frame_title_text_font, justify="center")
-    edit_title.grid(row=0, column=0)
+    edit_title.grid(row=0, column=0, columnspan=2)
 
 
 def run_app():
