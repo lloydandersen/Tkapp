@@ -5,6 +5,7 @@ from tkinter.font import Font
 from tkinter.dialog import Dialog
 
 
+
 root = tk.Tk()
 root.iconbitmap('Tkapplogomain.ico')
 root.minsize(500, 500)
@@ -13,7 +14,7 @@ style = ttk.Style()
 style.configure("TNotebook.Tab", font=("Poor Richard", 20))
 background_color = "#222222"
 root["background"] = background_color
-standard_widget_values = [0, 0, 0, 0, 0, 0, "", 1, 1, "#222222", "white", ("arial", 16), None, None, None, None,
+standard_widget_values = [0, 0, 0, 0, 0, 0, "", 1, 1, "#222222", "white", ("arial", 16, "bold"), None, None, None, None,
                           None, None, None]
 
 # Variables
@@ -39,6 +40,9 @@ var_4 = tk.StringVar()
 var_5 = tk.StringVar()
 var_6 = tk.StringVar()
 current_subtype_var = tk.StringVar()
+sample_var_1 = tk.StringVar()
+sample_var_2 = tk.StringVar()
+sample_var_3 = tk.StringVar()
 
 
 # Icons. Thank You, Google!
@@ -72,6 +76,8 @@ work_frame = tk.Frame()
 
 
 # Control and model functions
+
+
 def delete_selection():
     selection = view_tree.selection()[0]
     view_tree.delete(selection)
@@ -94,7 +100,11 @@ def select_a_color(type):
         foreground_color_var.set(f"{color}")
 
 
+
+
 def save_edit():
+    font_tuple = (f"{sample_var_1.get()}", sample_var_2.get(), f"{sample_var_3.get()}")
+    font_var.set(font_tuple)
     row = row_var.get()
     column = column_var.get()
     padx = padx_var.get()
@@ -120,6 +130,9 @@ def save_edit():
     name = widget_name_var.get()
     iid = widget_iid_var.get()
     view_tree.item(iid, text=name, values=edited_list)
+    for child in edit_frame.winfo_children():
+        child.destroy()
+        build_edit_frame()
 
 
 def build_grid_frame():
@@ -238,12 +251,12 @@ def build_grid_frame():
     color_button_height = 3
     color_button_width = 10
     background_color_button = tk.Button(color_frame, text="Background", command=lambda: select_a_color("background"),
-                                        width=color_button_width, height=color_button_height)
+                                        width=color_button_width, height=color_button_height, font=font_var.get())
 
     background_color_button.grid(row=0, column=0)
 
     foreground_color_button = tk.Button(color_frame, text="Foreground", command=lambda: select_a_color("foreground"),
-                                        width=color_button_width, height=color_button_height)
+                                        width=color_button_width, height=color_button_height, font=font_var.get())
     foreground_color_button.grid(row=0, column=1)
 
     background_color_button['background'] = background_color_var.get()
@@ -252,18 +265,44 @@ def build_grid_frame():
     color_frame.grid(row=0, column=2)
 
     work_frame = tk.Frame(standard_grid_frame, background=background_color)
-    work_frame.grid(row=1, column=2)
+    work_frame.grid(row=1, column=2, rowspan=6)
 
-    save_button = tk.Button(standard_grid_frame, text="Save", command=save_edit)
-    save_button.grid(row=2, column=2)
+    save_button = tk.Button(standard_grid_frame, text="Save", command=save_edit, width=10, height=3)
+    save_button.grid(row=8, column=2)
     widget_type = current_subtype_var.get()
+
+    test_font = font_var.get()
+
+    system_font_list = []
+    for family in tk.font.families():
+        system_font_list.append(family)
 
     if widget_type == 'Label':
         text_label = tk.Label(work_frame, text="Text", background=background_color, foreground="white")
         text_label.grid(row=0, column=0, padx=5, pady=5)
 
-        text_entry = tk.Entry(work_frame, textvariable=var_1)
+        text_entry = tk.Entry(work_frame, textvariable=var_1, font=test_font)
         text_entry.grid(row=0, column=1)
+
+
+
+        font_family_label = tk.Label(work_frame, text="Family", background=background_color, foreground="white")
+        font_family_label.grid(row=2, column=0, padx=5, pady=5)
+
+        font_family_entry = ttk.Combobox(work_frame, textvariable=sample_var_1, values=system_font_list)
+        font_family_entry.grid(row=2, column=1)
+
+        font_size_label = tk.Label(work_frame, text="Size", background=background_color, foreground="white")
+        font_size_label.grid(row=3, column=0, padx=5, pady=5)
+
+        font_size_entry = tk.Entry(work_frame, textvariable=sample_var_2)
+        font_size_entry.grid(row=3, column=1)
+
+        font_weight_label = tk.Label(work_frame, text="Weight", background=background_color, foreground="white")
+        font_weight_label.grid(row=4, column=0, padx=5, pady=5)
+
+        font_weight_entry = tk.Entry(work_frame, textvariable=sample_var_3)
+        font_weight_entry.grid(row=4, column=1)
 
 
 
@@ -278,7 +317,6 @@ def edit_selection():
     widget_name = item['text']
     widget_values = item['values']
     print(widget_name, widget_values)
-
 
 
     # Set variables
@@ -303,6 +341,15 @@ def edit_selection():
     var_5.set(widget_values[16])
     var_6.set(widget_values[17])
     current_subtype_var.set(widget_values[18])
+    font_list = []
+    for item in font_var.get():
+        font_list.append(item)
+
+    sample_var_1.set(font_list)
+    print(sample_var_1.get())
+    sample_var_2.set("no")
+    sample_var_3.set("no")
+    print(font_var.get())
     build_grid_frame()
 
 
@@ -330,6 +377,7 @@ def build_standard_dialog_frame():
 
     selection_button = ttk.Button(standard_dialog_frame, text="Add", command=add_selection_to_tree)
     selection_button.grid(row=1, column=0, sticky="swen")
+    widget_selection_var.set(standard_widgets_list[0])
 
 
 def build_data_dialog_frame():
@@ -345,6 +393,7 @@ def build_data_dialog_frame():
 
     selection_button = ttk.Button(data_dialog_frame, text="Add", command=add_selection_to_tree)
     selection_button.grid(row=1, column=0, sticky="swen")
+    widget_selection_var.set(data_widgets_list[0])
 
 
 def build_engineering_dialog_frame():
@@ -361,13 +410,15 @@ def build_engineering_dialog_frame():
     selection_button = ttk.Button(engineering_dialog_frame, text="Add", command=add_selection_to_tree)
     selection_button.grid(row=1, column=0, sticky="swen")
 
+    widget_selection_var.set(engineering_widgets_list[0])
+
 
 def build_special_dialog_frame():
-    widget_selection_var.set("")
     special_widgets_list = ['Map', 'Calender']
     dialog_box = tk.Toplevel(root, background=background_color)
     special_dialog_frame = tk.Frame(dialog_box, background=background_color)
     special_dialog_frame.pack(side="top", fill="both")
+    widget_selection_var.set(special_widgets_list[0])
 
     selection_box = ttk.Combobox(special_dialog_frame, textvariable=widget_selection_var, values=special_widgets_list,
                                  state="readonly")
