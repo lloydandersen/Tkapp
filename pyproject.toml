@@ -1,0 +1,17 @@
+[project]
+name = "tkapp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "lloydandersen", email = "lloydandersenco@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+tkapp = "tkapp:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
